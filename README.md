@@ -32,11 +32,18 @@ First, set the required items in `variables.tf`:
 # Set the following variables (mandatory)
 #
 
-# Scylla Cloud API token
+# ScyllaDB Cloud API token
 variable "scylla_cloud_token" {
-  description = "Scylla Cloud API token"
+  description = "ScyllaDB Cloud API token"
   type        = string
-  default     = "ADD-YOUR-API-TOKEN-HERE"  
+  default     = "ADD-YOUR-API-TOKEN-HERE"
+}
+
+# ScyllaDB Cloud region
+variable "scylla_cloud_token" {
+  description = "ScyllaDB Cloud region of the cluster"
+  type        = string
+  default     = "eu-north-1"
 }
 
 # SSH private key for EC2 instance access
