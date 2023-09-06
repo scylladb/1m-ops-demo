@@ -6,7 +6,7 @@ This demo shows you how to set up infrastructure with Terraform and run a 1 mill
 * Amazon Web Services (AWS) EC2 instances (three "loader" machines will make the database requests)
 
 ## Requirements
-* AWS account and CLI credentials (more information on acquiring the credentials [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) and [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html))
+* AWS account and CLI credentials (more information on acquiring the credentials [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) and [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html), for OKTA you can use [gimme-aws-creds](https://github.com/Nike-Inc/gimme-aws-creds))
 * ScyllaDB Cloud API token (get your API token [here](https://cloud.docs.scylladb.com/stable/api-docs/api-get-started.html))
 * Terraform installed on your machine (installation instructions [here](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli))
 
