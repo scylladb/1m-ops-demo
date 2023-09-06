@@ -14,6 +14,7 @@ This demo shows you how to set up infrastructure with Terraform and run a 1 mill
 Clone the repository:
 ```
 git clone https://github.com/zseta/scylladb-1m-ops-demo.git
+cd scylladb-1m-ops-demo/
 ```
 
 In this repository you can find the Terraform configuration files needed to set up the demo. The configuration creates the following resources in AWS and ScyllaDB Cloud:

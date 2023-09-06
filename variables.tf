@@ -9,6 +9,13 @@ variable "scylla_cloud_token" {
   default     = "ADD-YOUR-API-TOKEN-HERE"
 }
 
+# ScyllaDB Cloud region
+variable "scylla_cloud_token" {
+  description = "ScyllaDB Cloud region of the cluster"
+  type        = string
+  default     = "eu-north-1"
+}
+
 # SSH private key for EC2 instance access
 variable "ssh_private_key" {
   description = "SSH private key location for EC2 instance access"
@@ -27,13 +34,6 @@ variable "aws_creds" {
   description = "AWS credentials location"
   type        = string
   default     = "/home/user/.aws/credentials"
-}
-
-# ScyllaDB Cloud region
-variable "scylla_cloud_token" {
-  description = "ScyllaDB Cloud region of the cluster"
-  type        = string
-  default     = "eu-north-1"
 }
 
 ################################################
