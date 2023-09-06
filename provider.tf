@@ -1,5 +1,5 @@
 provider "aws" {
-  region                   = var.scylladb_region
+  region                   = var.scylla_cloud_region
   shared_credentials_files = ["${var.aws_creds}"]
   profile                  = "DeveloperAccessRole"
 }

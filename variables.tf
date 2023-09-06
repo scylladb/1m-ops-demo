@@ -10,7 +10,7 @@ variable "scylla_cloud_token" {
 }
 
 # ScyllaDB Cloud region
-variable "scylla_cloud_token" {
+variable "scylla_cloud_region" {
   description = "ScyllaDB Cloud region of the cluster"
   type        = string
   default     = "eu-north-1"
