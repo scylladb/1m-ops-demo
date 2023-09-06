@@ -78,6 +78,10 @@ Do you want to perform these actions?
   Only 'yes' will be accepted to approve.
 
   Enter a value: yes
+
+[...]
+
+Apply complete! Resources: 23 added, 0 changed, 0 destroyed.
 ```
 
 Setting up the infrastructure takes 15+ minutes. Once Terraform is finished it takes another 2-3 minutes to reach 1M ops/sec.
