@@ -5,10 +5,18 @@ This demo shows you how to set up infrastructure with Terraform and run a 1 mill
 * [ScyllaDB Cloud cluster](https://cloud.scylladb.com)
 * Amazon Web Services (AWS) EC2 instances (three "loader" machines will make the database requests)
 
-## Requirements
+## Prerequisites
 * AWS account and CLI credentials (more information on acquiring the credentials [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) and [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html), for OKTA you can use [gimme-aws-creds](https://github.com/Nike-Inc/gimme-aws-creds))
 * ScyllaDB Cloud API token (get your API token [here](https://cloud.docs.scylladb.com/stable/api-docs/api-get-started.html))
 * Terraform installed on your machine (installation instructions [here](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli))
+
+### AWS permissions
+Make sure that you have sufficient AWS permissions to create the following items:
+* VPC
+* Subnets
+* Security groups
+* EC2 instances (three)
+
 
 ## Get started
 Clone the repository:
@@ -16,15 +24,6 @@ Clone the repository:
 git clone https://github.com/zseta/scylladb-1m-ops-demo.git
 cd scylladb-1m-ops-demo/
 ```
-
-In this repository you can find the Terraform configuration files needed to set up the demo. The configuration creates the following resources in AWS and ScyllaDB Cloud:
-* ScyllaDB Cloud cluster
-* VPC
-* Subnets
-* Security groups
-* EC2 instances (three)
-
-Make sure that you have sufficient AWS permissions to create these items.
 
 First, set the required items in `variables.tf`:
 ```terraform
