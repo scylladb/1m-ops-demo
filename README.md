@@ -1,5 +1,5 @@
 # ScyllaDB 1 million operations/second DEMO
-This demo shows you how to set up infrastructure with Terraform and run a 1 million ops/sec load on ScyllaDB Cloud cluster. This repo is a great starting point for you to test ScyllaDB Cloud under heavy load and simulate your own workload you expect ScyllaDB to handle.
+This demo shows you how to set up infrastructure with Terraform and run a 1 million ops/sec load on ScyllaDB Cloud cluster. This repo is a great starting point for you to test ScyllaDB Cloud under heavy load and simulate your own workload you expect ScyllaDB to handle. [Watch the video tutorial here!](https://www.youtube.com/watch?v=SXwNVrU93IM)
 
 ## Infrastructure elements
 * [ScyllaDB Cloud cluster](https://cloud.scylladb.com)
