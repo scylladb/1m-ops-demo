@@ -21,7 +21,7 @@ Make sure that you have sufficient AWS permissions to create the following items
 ## Get started
 Clone the repository:
 ```
-git clone https://github.com/zseta/scylladb-1m-ops-demo.git
+git clone https://github.com/scylladb/scylladb-1m-ops-demo.git
 cd scylladb-1m-ops-demo/
 ```
 
