@@ -75,7 +75,7 @@ variable "instance_type" {
 variable "scylla_node_type" {
   description = "Type of ScyllaDB Cloud instance"
   type        = string
-  default     = "i3.8xlarge"
+  default     = "i3en.24xlarge"
 }
 
 # ScyllaDB Cloud user
