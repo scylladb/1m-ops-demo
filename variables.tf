@@ -13,7 +13,7 @@ variable "scylla_cloud_token" {
 variable "scylla_cloud_region" {
   description = "ScyllaDB Cloud region of the cluster"
   type        = string
-  default     = "eu-north-1"
+  default     = "us-east-1"
 }
 
 # SSH private key for EC2 instance access
@@ -75,7 +75,7 @@ variable "instance_type" {
 variable "scylla_node_type" {
   description = "Type of ScyllaDB Cloud instance"
   type        = string
-  default     = "i3en.24xlarge"
+  default     = "i4i.4xlarge"
 }
 
 # ScyllaDB Cloud user
@@ -110,7 +110,7 @@ variable "instance_tenancy" {
 variable "ami_id" {
   description = "AMI ID for the EC2 instance"
   type        = string
-  default     = "ami-0a23f9b62c17c53fe"
+  default     = "ami-0665aae77b073ae42"
 }
 
 # Number of ScyllaDB Cloud instances to create
