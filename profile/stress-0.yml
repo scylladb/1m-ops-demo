@@ -3,7 +3,7 @@ keyspace: pet_store_iot
 
 # Create the keyspace
 keyspace_definition: |
-  CREATE KEYSPACE pet_store_iot WITH replication = {'class': 'NetworkStrategy', 'replication_factor': 3};
+  CREATE KEYSPACE pet_store_iot WITH replication = {'class': 'NetworkTopologyStrategy', 'replication_factor': 3};
 
 # The name of the table
 table: sensor_data
