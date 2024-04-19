@@ -3,7 +3,7 @@ keyspace: pet_store_iot
 
 # Create the keyspace
 keyspace_definition: |
-  CREATE KEYSPACE pet_store_iot WITH replication = {'class': 'NetworkTopologyStrategy', 'replication_factor': 3};
+  CREATE KEYSPACE pet_store_iot WITH replication = {'class': 'NetworkTopologyStrategy', 'replication_factor': 1};
 
 # The name of the table
 table: sensor_data
@@ -23,7 +23,8 @@ table_definition: |
       'compaction_window_size': '1',    
       'compaction_window_unit': 'DAYS',   
       'timestamp_resolution': 'MICROSECONDS'
-    };
+    }
+    AND speculative_retry = 'NONE';
 
 # Define the columns for the table
 columnspec:
