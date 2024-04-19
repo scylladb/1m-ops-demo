@@ -60,7 +60,7 @@ variable "num_threads" {
 variable "num_of_ops" {
   description = "Total number of operations to run"
   type        = string
-  default     = "1000M"
+  default     = "5M"
 }
 
 # Throttling for the Cassandra stress tool
