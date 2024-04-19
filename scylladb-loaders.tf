@@ -67,7 +67,7 @@ resource "aws_eip" "eip" {
   count            = length(aws_instance.instance.*.id)               # Create an Elastic IP for each EC2 instance
   instance         = element(aws_instance.instance.*.id, count.index) # Associate the Elastic IP with the current EC2 instance
   public_ipv4_pool = "amazon"                                         # Use the Amazon pool for public IPv4 addresses
-  domain              = "vpc"                                             # Create a VPC Elastic IP address
+  domain           = "vpc"                                            # Create a VPC Elastic IP address
 
   tags = { # Add tags to the Elastic IP resource
     "Name" = "${var.custom_name}-EIP-${count.index}"
