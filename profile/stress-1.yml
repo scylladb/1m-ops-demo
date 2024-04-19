@@ -24,7 +24,7 @@ table_definition: |
       'compaction_window_unit': 'DAYS', 
       'timestamp_resolution': 'MICROSECONDS'
     }
-    AND speculative_retry = 'NONE';;
+    AND speculative_retry = 'NONE';
 
 # Define the columns for the table
 columnspec:
