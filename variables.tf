@@ -36,6 +36,12 @@ variable "aws_creds" {
   default     = "/home/user/.aws/credentials"
 }
 
+# AWS Profile to Use
+variable "aws_profile" {
+   description = "AWS Profile to Use"
+   type        = string
+   default     = "DeveloperAccessRole"
+}
 ################################################
 
 #
