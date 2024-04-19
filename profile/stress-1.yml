@@ -3,7 +3,7 @@ keyspace: pet_store_iot
 
 # Create the keyspace
 keyspace_definition: |
-  CREATE KEYSPACE pet_store_iot WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+  CREATE KEYSPACE pet_store_iot WITH replication = {'class': 'NetworkTopologyStrategy', 'replication_factor': 3};
 
 # The name of the table
 table: sensor_data
@@ -22,7 +22,6 @@ table_definition: |
       'class': 'TimeWindowCompactionStrategy',  
       'compaction_window_size': '1',    
       'compaction_window_unit': 'DAYS', 
-      'max_sstable_age_days': '365',   
       'timestamp_resolution': 'MICROSECONDS'
     };
 
