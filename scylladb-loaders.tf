@@ -43,6 +43,7 @@ resource "aws_instance" "instance" {
       "echo '/usr/bin/cassandra-stress user profile=./stress.yml n=${var.num_of_ops} cl=local_quorum no-warmup \"ops(insert=1)\" -rate threads=${var.num_threads} fixed=450000/s -mode native cql3 user=${var.scylla_user} password=${local.scylla_pass} -log file=populating.log  -node ${local.scylla_ips}' > start.sh",
       "echo '/usr/bin/cassandra-stress user profile=./stress.yml duration=24h no-warmup cl=local_quorum \"ops(add_sensor_data=1,get_sensor_data=3)\" -rate threads=${var.num_threads} fixed=${var.throttle} -mode native cql3 user=${var.scylla_user} password=${local.scylla_pass} -log file=benchmarking.log -node ${local.scylla_ips}' > benchmark.sh",
       "sudo chmod +x start.sh benchmark.sh",
+      "echo '/home/scyllaadm/benchmark.sh' >> /home/scyllaadm/start.sh",
       "sudo mv /home/scyllaadm/cassandra-stress.service /etc/systemd/system/cassandra-stress.service ",
       "sudo mv /home/scyllaadm/cassandra-stress-benchmark.service /etc/systemd/system/cassandra-stress-benchmark.service ", "sudo systemctl daemon-reload ",
       "sudo systemctl start cassandra-stress.service",
