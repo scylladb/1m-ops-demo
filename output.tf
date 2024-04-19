@@ -21,6 +21,10 @@ output "scylladbcloud_dns_names" {
   value = scylladbcloud_cluster.scylladbcloud.node_dns_names
 }
 
+output "scylladbcloud_datacenter" {
+  value = scylladbcloud_cluster.scylladbcloud.datacenter
+}
+
 // Output the CQL password
 output "scylladbcloud_cql_password" {
   value     = data.scylladbcloud_cql_auth.scylla.password # Get the CQL password for the cluster
