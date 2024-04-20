@@ -77,9 +77,16 @@ variable "instance_type" {
   default     = "i4i.8xlarge"
 }
 
+# Number of Loader instances to create
+variable "loader_node_count" {
+  description = "Number of Loader instances to create"
+  type        = string
+  default     = "3"
+}
+
 # ScyllaDB Cloud instance type
 variable "scylla_node_type" {
-  description = "Type of ScyllaDB Cloud instance"
+  description = "Type of ScyllaDB Cloud instance (3,6,9,12,15,18,21)"
   type        = string
   default     = "i4i.4xlarge"
 }
