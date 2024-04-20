@@ -2,7 +2,7 @@
 # Create tags to identify the instances and sets timeouts for creating the instances.
 
 resource "aws_instance" "instance" {
-  count           = length(aws_subnet.public_subnet.*.id)
+  count           = var.loader_node_count
   ami             = var.ami_id
   instance_type   = var.instance_type
   subnet_id       = element(aws_subnet.public_subnet.*.id, count.index)
