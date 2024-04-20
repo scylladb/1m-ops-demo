@@ -127,6 +127,6 @@ variable "scylla_node_count" {
 }
 
 locals {
-  scylla_ips  = (join(",", [for s in scylladbcloud_cluster.scylladbcloud.node_private_ips : format("%s", s)]))
+  scylla_ips  = (join(",", [for s in scylladbcloud_cluster.scylladbcloud.node_dns_names : format("%s", s)]))
   scylla_pass = data.scylladbcloud_cql_auth.scylla.password
 }
