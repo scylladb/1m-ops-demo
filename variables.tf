@@ -36,6 +36,12 @@ variable "aws_creds" {
   default     = "/home/user/.aws/credentials"
 }
 
+# AWS Profile to Use
+variable "aws_profile" {
+   description = "AWS Profile to Use"
+   type        = string
+   default     = "DeveloperAccessRole"
+}
 ################################################
 
 #
@@ -54,7 +60,7 @@ variable "num_threads" {
 variable "num_of_ops" {
   description = "Total number of operations to run"
   type        = string
-  default     = "1000M"
+  default     = "5M"
 }
 
 # Throttling for the Cassandra stress tool
@@ -71,9 +77,16 @@ variable "instance_type" {
   default     = "i4i.8xlarge"
 }
 
+# Number of Loader instances to create
+variable "loader_node_count" {
+  description = "Number of Loader instances to create"
+  type        = string
+  default     = "3"
+}
+
 # ScyllaDB Cloud instance type
 variable "scylla_node_type" {
-  description = "Type of ScyllaDB Cloud instance"
+  description = "Type of ScyllaDB Cloud instance (3,6,9,12,15,18,21)"
   type        = string
   default     = "i4i.4xlarge"
 }
@@ -121,6 +134,6 @@ variable "scylla_node_count" {
 }
 
 locals {
-  scylla_ips  = (join(",", [for s in scylladbcloud_cluster.scylladbcloud.node_private_ips : format("%s", s)]))
+  scylla_ips  = (join(",", [for s in scylladbcloud_cluster.scylladbcloud.node_dns_names : format("%s", s)]))
   scylla_pass = data.scylladbcloud_cql_auth.scylla.password
 }

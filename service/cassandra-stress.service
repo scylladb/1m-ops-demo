@@ -4,7 +4,7 @@ Description="Start Cassandra-stress to populate ScyllaDB"
 [Service]
 User=scyllaadm
 WorkingDirectory=/home/scyllaadm/
-ExecStart=/usr/bin/bash /home/scyllaadm/start.sh & wait && /usr/bin/bash /home/scyllaadm/benchmark.sh
+ExecStart=/usr/bin/bash /home/scyllaadm/start.sh
 Type=simple
 [Install]
 WantedBy=multi-user.target

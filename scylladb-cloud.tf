@@ -39,24 +39,9 @@ resource "scylladbcloud_vpc_peering" "scylladbcloud" {
   cluster_id      = scylladbcloud_cluster.scylladbcloud.id
   datacenter      = scylladbcloud_cluster.scylladbcloud.datacenter
   peer_vpc_id     = aws_vpc.custom_vpc.id
-  peer_cidr_block = var.custom_vpc
+  peer_cidr_blocks = [var.custom_vpc]
   peer_region     = data.aws_region.current.name
   peer_account_id = data.aws_caller_identity.current.account_id
   allow_cql       = true
 }
 
-# Output the VPC peering connection ID
-output "scylladbcloud_vpc_peering_connection_id" {
-  value = scylladbcloud_vpc_peering.scylladbcloud.connection_id
-}
-
-// Output the private IP addresses of the nodes
-output "scylladbcloud_cluster_ips" {
-  value = scylladbcloud_cluster.scylladbcloud.node_private_ips
-}
-
-// Output the CQL password
-output "scylladbcloud_cql_password" {
-  value     = data.scylladbcloud_cql_auth.scylla.password # Get the CQL password for the cluster
-  sensitive = true                                        # Mark the output as sensitive so it won't be shown in logs or output
-}
