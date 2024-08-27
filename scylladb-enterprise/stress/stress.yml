@@ -1,0 +1,66 @@
+# The name of the keyspace
+keyspace: pet_store_iot
+
+# Create the keyspace
+keyspace_definition: |
+  CREATE KEYSPACE pet_store_iot WITH replication = {'class': 'NetworkTopologyStrategy', 'replication_factor': 1};
+
+# The name of the table
+table: sensor_data
+
+# The CQL command to create the table
+table_definition: |
+  CREATE TABLE sensor_data (
+    device_id text,
+    sensor_type text,
+    bucket timestamp,
+    timestamp timestamp,
+    value double,
+    PRIMARY KEY ((device_id, sensor_type, bucket), timestamp)
+    ) WITH CLUSTERING ORDER BY (timestamp DESC)
+    AND compaction = {
+      'class': 'TimeWindowCompactionStrategy',  
+      'compaction_window_size': '1',    
+      'compaction_window_unit': 'DAYS',    
+      'timestamp_resolution': 'MICROSECONDS' 
+    }
+    AND speculative_retry = 'NONE';
+
+# Define the columns for the table
+columnspec:
+  - name: device_id
+    size: FIXED(10)
+    population: uniform(1..10000)
+  - name: sensor_type
+    size: FIXED(10)
+    population: uniform(1..10)
+  - name: bucket
+    size: FIXED(10)
+    # Set the population of the bucket column to a sequence of timestamps from 1619798400 to the current time
+    population: seq(1640995200..1683013974)
+  - name: timestamp
+    size: FIXED(10)
+    # Set the population of the timestamp column to a sequence of timestamps from 1619798400 to the current time
+    population: seq(1640995200..1683013974)
+  - name: value
+    size: FIXED(10)
+    # Set the population of the value column to a Gaussian distribution with a mean of 50 and a standard deviation of 10
+    population: gaussian(10..50)
+
+# Define the insertion profile
+insert:
+  partitions: fixed(1)
+  batchtype: UNLOGGED
+  select: fixed(1)/1
+
+# Define the CQL queries for the stress test
+queries:
+  get_sensor_data:
+    cql: SELECT * FROM sensor_data WHERE device_id = ? AND sensor_type = ? AND bucket = ? AND timestamp >= ? AND timestamp <= ? LIMIT 100;
+    fields: samerow
+  get_latest_sensor_data:
+    cql: SELECT * FROM sensor_data WHERE device_id = ? AND sensor_type = ? AND bucket = ? LIMIT 1;
+    fields: samerow
+  add_sensor_data:
+    cql: INSERT INTO sensor_data (device_id, sensor_type, bucket, timestamp, value) VALUES (?, ?, ?, ?, ?);
+    fields: samerow
