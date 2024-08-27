@@ -23,8 +23,8 @@ Make sure that you have sufficient AWS permissions to create the following items
 ## Get started
 Clone the repository:
 ```
-git clone <https://github.com/scylladb/1m-ops-enterprise-demo.git>
-cd 1m-ops-enterprise-demo/
+git clone <https://github.com/scylladb/1m-ops-demo.git>
+cd scylladb-enterprise/
 ```
 
 First, set the required items in `variables.tf`:
