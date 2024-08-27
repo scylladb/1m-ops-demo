@@ -82,12 +82,6 @@ Do you want to perform these actions?
 
 [...]
 
-Apply complete! Resources: 23 added, 0 changed, 0 destroyed.
-```
-
-Setting up the infrastructure takes 4+ minutes. Once Terraform is finished, go to the ScyllaDB Monitoring page (Terraform outputs the URL).
-
-```
 Apply complete! Resources: 20 added, 0 changed, 0 destroyed.
 
 Outputs:
@@ -97,10 +91,9 @@ scylla_ips = "10.0.0.74,10.0.0.73,10.0.0.145"
 scylla_public_ips = "18.222.111.226,18.222.163.223,3.145.73.47"
 ```
 
+Setting up the infrastructure takes 4+ minutes. Once Terraform is finished, go to the ScyllaDB Monitoring page (Terraform outputs the URL).
+
 After finishing the demo, destroy the infrastructure:
 ```
 terraform destroy
 ```
-
-
-
