@@ -4,9 +4,9 @@ This demo shows you how to set up infrastructure with Terraform and run a 1 mill
 ## Infrastructure elements
 * ScyllaDB Enterprise
 * Amazon Web Services (AWS) EC2 instances
- * three "loader" machines
- * three ScyllaDB Enterprise machines
- * one ScyllaDB Monitoring machine
+  * three "loader" machines
+  * three ScyllaDB Enterprise machines
+  * one ScyllaDB Monitoring machine
 
 ## Prerequisites
 * AWS account and CLI credentials (more information on acquiring the credentials [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) and [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html), for OKTA you can use [gimme-aws-creds](https://github.com/Nike-Inc/gimme-aws-creds))
