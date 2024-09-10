@@ -1,6 +1,10 @@
 # Get started
 
-Use the instructions outlined below to set up [AWS EC2](https://aws.amazon.com/ec2/) instances and [ScyllaDB Cloud](https://cloud.scylladb.com/) and run 1 million ops/sec workload.
+Follow along this video to get started:
+
+<p><iframe width="560" height="315" src="https://www.youtube.com/embed/SXwNVrU93IM?si=ffv6jugdENamMQG0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+Or use the instructions outlined below to set up [AWS EC2](https://aws.amazon.com/ec2/) instances and [ScyllaDB Cloud](https://cloud.scylladb.com/) and run 1 million ops/sec workload.
 
 ## Prerequisites
 * AWS account and CLI credentials (more information on acquiring the credentials [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) and [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html), for OKTA you can use [gimme-aws-creds](https://github.com/Nike-Inc/gimme-aws-creds))
@@ -15,10 +19,6 @@ Make sure that you have sufficient AWS permissions to create the following items
 * EC2 instances (three)
 
 ## Configure Terraform and set up infrastructure
-
-Follow along this video to get started:
-
-<p><iframe width="560" height="315" src="https://www.youtube.com/embed/SXwNVrU93IM?si=ffv6jugdENamMQG0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
 
 1. Clone the repository:
     ```
@@ -85,7 +85,7 @@ Follow along this video to get started:
 Setting up the infrastructure takes 15+ minutes. Once Terraform is finished it takes another 2-3 minutes to reach 1M ops/sec.
 
 Go to [ScyllaDB Cloud console](https://cloud.scylladb.com/clusters/list), select your newly created cluster `ScyllaDB-Cloud-Demo` and open `Monitoring` to see the workload live:
-![ScyllaDB Monitoring 1 million ops/sec](../../images/scylladb-monitoring.png) After finishing the demo, don't forget to destroy the infrastructure to avoid unnecessary costs:
+![ScyllaDB Monitoring 1 million ops/sec](../../scylladb-cloud/images/scylladb-monitoring.png) After finishing the demo, don't forget to destroy the infrastructure to avoid unnecessary costs:
 ```
 terraform destroy
 ```

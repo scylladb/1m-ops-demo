@@ -23,8 +23,8 @@ Make sure that you have sufficient AWS permissions to create the following items
 ## Get started
 Clone the repository:
 ```
-git clone <https://github.com/scylladb/1m-ops-demo.git>
-cd scylladb-enterprise/
+git clone https://github.com/scylladb/1m-ops-demo.git
+cd 1m-ops-demo/scylladb-enterprise/
 ```
 
 First, set the required items in `variables.tf`:
@@ -86,7 +86,7 @@ Apply complete! Resources: 20 added, 0 changed, 0 destroyed.
 
 Outputs:
 
-monitoring_url = "http://18.217.117.255:3000"
+monitoring_url = "http://<ip-address>:3000"
 scylla_ips = "10.0.0.74,10.0.0.73,10.0.0.145"
 scylla_public_ips = "18.222.111.226,18.222.163.223,3.145.73.47"
 ```
