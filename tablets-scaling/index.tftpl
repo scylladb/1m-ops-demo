@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>ScyllaDB Tablets DEMO</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 2000px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .buttons {
+      margin-bottom: 20px;
+    }
+
+    .buttons button {
+      padding: 10px 20px;
+      margin-right: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #output {
+      background-color: #000;
+      color: #0f0;
+      padding: 15px;
+      height: 500px;
+      overflow-y: scroll;
+      font-family: monospace;
+      white-space: pre-wrap;
+      border-radius: 5px;
+    }
+
+    /* Tab styles */
+    .tabs {
+      overflow: hidden;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    .tab-button {
+      float: left;
+      background-color: #f1f1f1;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      transition: background-color 0.3s;
+      font-size: 17px;
+    }
+
+    .tab-button:hover {
+      background-color: #ddd;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 20px;
+      border-top: none;
+    }
+
+    .active {
+      display: block;
+    }
+
+    /* Shell terminal styling */
+    .terminal {
+      background-color: #000;
+      color: #0f0;
+      padding: 15px;
+      height: 500px;
+      overflow-y: scroll;
+      font-family: monospace;
+      white-space: pre-wrap;
+      border-radius: 5px;
+      position: relative;
+    }
+
+    .terminal-input {
+      width: 100%;
+      padding: 10px;
+      font-family: monospace;
+      background: #000;
+      color: #0f0;
+      border: none;
+      box-sizing: border-box;
+      margin-top: 5px;
+    }
+
+    .tab-content .terminal {
+      display: block;
+      padding: 20px;
+      border-top: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+  <script type="text/javascript" charset="utf-8">
+    document.addEventListener("DOMContentLoaded", function () {
+      var socket = io();
+
+      document.getElementById("stepOneBtn").addEventListener("click", function () {
+        socket.emit("original_cluster");
+      });
+
+      document.getElementById("stepTwoBtn").addEventListener("click", function () {
+        socket.emit("sample_data");
+      });
+
+      document.getElementById("stepThreeBtn").addEventListener("click", function () {
+        socket.emit("start_stress");
+      });
+
+      document.getElementById("stepFourBtn").addEventListener("click", function () {
+        socket.emit("scale_out");
+      });
+
+      document.getElementById("stepFiveBtn").addEventListener("click", function () {
+        socket.emit("stop_stress");
+      });
+
+      document.getElementById("stepSixBtn").addEventListener("click", function () {
+        socket.emit("scale_in");
+      });
+
+      socket.on("playbook_output", function (data) {
+        var outputElem = document.getElementById("output");
+        outputElem.textContent += data.output;
+        outputElem.scrollTop = outputElem.scrollHeight;  // Auto-scroll
+      });
+
+      // Tab functionality
+      var tabs = document.getElementsByClassName("tab-button");
+      var contents = document.getElementsByClassName("tab-content");
+
+      for (let i = 0; i < tabs.length; i++) {
+        tabs[i].addEventListener("click", function () {
+          for (let j = 0; j < tabs.length; j++) {
+            tabs[j].classList.remove("active");
+            contents[j].classList.remove("active");
+          }
+          tabs[i].classList.add("active");
+          contents[i].classList.add("active");
+        });
+      }
+    });
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="tabs">
+      <button class="tab-button active">Playbook</button>
+    </div>
+    <!-- Playbook Tab -->
+    <div class="tab-content active">
+      <h1>Click through the DEMO steps</h1>
+      <div class="buttons">
+        <button id="stepOneBtn">1. Set up 3-node cluster</button>
+        <button id="stepTwoBtn">2. Load sample data</button>
+        <button id="stepThreeBtn">3. Start loader</button>
+        <button id="stepFourBtn">4. Scale out (add 3 nodes)</button>
+        <button id="stepFiveBtn">5. Stop loader</button>
+        <button id="stepSixBtn">6. Scale in (remove 3 nodes)</button>
+      </div>
+      <p>Playbook Output:</p>
+      <pre id="output"></pre>
+    </div>
+
+    <!-- Tabs for Grafana Dashboards -->
+    <div class="tabs">
+      <button class="tab-button active">Overview</button>
+      <button class="tab-button">Detailed</button>
+      <button class="tab-button">Advanced</button>
+      <button class="tab-button">CQL</button>
+      <button class="tab-button">OS Metrics</button>
+    </div>
+
+    <div class="tab-content active">
+      <iframe
+        src="http://${monitoring_ip}:3000/d/overview-6-0/overview?from=now-5m&to=now&var-by=instance&var-cluster=cluster&var-dc=All&var-node=All&var-shard=All&var-mount_point=%2Fvar%2Flib%2Fscylla&var-sg=sl:default&var-func=sum&var-dash_version=2024-2&var-all_scyllas_versions=All&var-count_dc=All&var-scylla_version=2024.2&var-monitoring_version=4.8.1&orgId=1&refresh=5s&var-kind=All&var-topk=256&var-bottomk=0&theme=dark&var-sg=sl:realtime&var-sg=sl:wlp"
+        width="100%" height="1600px" frameborder="0"></iframe>
+    </div>
+    <div class="tab-content">
+      <iframe
+        src="http://${monitoring_ip}:3000/d/detailed-6-0/detailed?from=now-5m&to=now&var-by=instance&var-cluster=cluster&var-dc=All&var-node=All&var-shard=All&var-topk=256&var-bottomk=0&var-dash_version=2024-2&var-scylla_version=2024.2&var-monitoring_version=4.8.1&orgId=1&refresh=5s&var-sg=sl:realtime&var-sg=sl:wlp&var-kind=All&var-func=sum&theme=dark"
+        width="100%" height="1600px" frameborder="0"></iframe>
+    </div>
+    <div class="tab-content">
+      <iframe
+        src="http://${monitoring_ip}:3000/d/advanced-6-0/advanced?from=now-5m&to=now&var-by=instance&var-cluster=cluster&var-dc=All&var-node=All&var-shard=All&var-mount_point=%2Fvar%2Flib%2Fscylla&var-sg=sl:default&var-func=sum&var-dash_version=2024-2&var-all_scyllas_versions=All&var-count_dc=All&var-scylla_version=2024.2&var-monitoring_version=4.8.1&orgId=1&refresh=5s&var-kind=All&var-topk=256&var-bottomk=0&theme=dark"
+        width="100%" height="1600px" frameborder="0"></iframe>
+    </div>
+    <div class="tab-content">
+      <iframe
+        src="http://${monitoring_ip}:3000/d/cql-6-0/scylla-cql?from=now-5m&to=now&var-by=instance&var-cluster=cluster&var-dc=All&var-node=All&var-shard=All&var-mount_point=%2Fvar%2Flib%2Fscylla&var-sg=sl:realtime&var-sg=sl:wlp&var-func=sum&var-dash_version=2024-2&var-all_scyllas_versions=All&var-count_dc=All&var-scylla_version=2024.2&var-monitoring_version=4.8.1&orgId=1&refresh=5s&var-kind=All&var-topk=256&var-bottomk=0&theme=dark"
+        width="100%" height="1600px" frameborder="0"></iframe>
+    </div>
+    <div class="tab-content">
+      <iframe
+        src="http://${monitoring_ip}:3000/d/OS-6-0/os-metrics?from=now-5m&to=now&var-by=instance&var-cluster=cluster&var-dc=All&var-node=All&var-shard=All&var-topk=256&var-bottomk=0&var-dash_version=2024-2&var-scylla_version=2024.2&var-monitoring_version=4.8.1&orgId=1&refresh=30s&theme=dark"
+        width="100%" height="1600px" frameborder="0"></iframe>
+    </div>
+  </div>
+</body>
+
+</html>

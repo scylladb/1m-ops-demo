@@ -1,0 +1,19 @@
+---
+- name: Scale in
+  hosts: scale_out
+  become: True
+
+  tasks: 
+    - name: Decommission node
+      ansible.builtin.shell:
+        cmd: nodetool decommission
+
+    - name: Stop ScyllaDB
+      ansible.builtin.systemd_service:
+        name: scylla-server.service
+        state: stopped
+
+    - name: Wipe data-dir
+      ansible.builtin.shell:
+        cmd: 'rm -fr /var/lib/scylla/data/* ;  find /var/lib/scylla -type f -delete'
+
