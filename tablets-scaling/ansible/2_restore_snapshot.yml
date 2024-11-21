@@ -1,0 +1,12 @@
+---
+- name: Restore snapshot
+  hosts: original_cluster[0]
+  become: True
+  tasks:
+    - name: Create schema
+      ansible.builtin.shell: 'cqlsh -f /home/ubuntu/schema.cql'
+    - name: Restore snapshot 
+      ansible.builtin.shell: bash /home/ubuntu/restore_snapshot.sh
+    - name: Nodetool refresh
+      ansible.builtin.shell: 'nodetool refresh keyspace1 standard1'
+

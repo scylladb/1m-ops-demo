@@ -1,0 +1,11 @@
+[Unit]
+Description="Start cql-stress to populate ScyllaDB"
+
+[Service]
+User=ubuntu
+WorkingDirectory=/home/ubuntu/cql-stress
+ExecStart=/usr/bin/bash -c '. $HOME/.cargo/env; /home/ubuntu/cql-stress/start.sh'
+Type=simple
+Environment="PATH=/home/ubuntu/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+[Install]
+WantedBy=multi-user.target

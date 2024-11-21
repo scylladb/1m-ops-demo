@@ -1,0 +1,12 @@
+---
+- name: Start loader
+  hosts: stress
+  become: True
+
+  tasks: 
+    - name: Start CQL Stress
+      ansible.builtin.systemd_service:
+        name: cql-stress.service
+        state: started
+        daemon_reload: True
+

@@ -1,8 +1,11 @@
 # ScyllaDB 1 million operations/second DEMOs
 
-This repository contains Terraform configuration files for setting up a 1 million operations/second DEMO with different flavours of ScyllaDB:
+Set up 1 million operations/second DEMO with different flavours of ScyllaDB:
 * [1 million operations/second with ScyllaDB Cloud](/scylladb-cloud)
 * [1 million operations/second with ScyllaDB Enterprise](/scylladb-enterprise)
+
+Scale a cluster from 3 to 6 nodes with Tablets enabled:
+* [ScyllaDB Tablets DEMO on AWS](/tablets-scaling)
 
 ## Usage
 1. Clone the repository

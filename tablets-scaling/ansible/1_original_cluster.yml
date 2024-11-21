@@ -1,0 +1,20 @@
+---
+- name: Start cluster
+  hosts: original_cluster
+  become: True
+
+  tasks: 
+    - name: Start ScyllaDB Service
+      ansible.builtin.systemd_service:
+        name: scylla-server.service
+        state: started
+
+    - name: Waiting for CQL port readiness
+      wait_for:
+        port: 9042
+        host: 127.0.0.1
+        connect_timeout: 3
+        delay: 3
+        sleep: 10
+        timeout: 1200
+        state: present
