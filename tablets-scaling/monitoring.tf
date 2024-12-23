@@ -85,14 +85,14 @@ resource "aws_instance" "scylladb-monitoring" {
 }
 
 locals {
-  template_file_init = templatefile("${path.module}/index.tftpl", {
+  template_file_init = templatefile("${path.module}/grafana-urls.tftpl", {
     monitoring_ip = "${aws_instance.scylladb-monitoring.*.public_ip[0]}"
   })
 }
 
-resource "local_file" "create_html" {
+resource "local_file" "grafana_urls" {
   content  = local.template_file_init
-  filename = "${path.module}/index.html"
+  filename = "${path.module}/data/grafana_urls.json"
 }
 
 output "monitoring_url" {

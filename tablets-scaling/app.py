@@ -1,4 +1,4 @@
-from flask import Flask, render_template_string
+from flask import Flask, send_from_directory, render_template_string, abort
 from flask_socketio import SocketIO
 import os
 import subprocess
@@ -10,6 +10,9 @@ socketio = SocketIO(app)
 env = os.environ.copy()
 env["PYTHONUNBUFFERED"] = "1"
 env["ANSIBLE_FORCE_COLOR"] = "1"
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+VALID_STATIC_DIRS = ['js', 'css', 'img', 'fonts', 'data']
 
 def read_file_to_string(file_path):
     """
@@ -28,6 +31,17 @@ def read_file_to_string(file_path):
     except Exception as e:
         print(f"An error occurred: {e}")
         return ""
+
+
+@app.route('/<folder>/<path:filename>')
+def serve_static(folder, filename):
+    if folder not in VALID_STATIC_DIRS:
+        abort(404, description=f"Invalid static folder: {folder}")
+    file_path = os.path.join(BASE_DIR, folder, filename)
+    if not os.path.exists(file_path):
+        abort(404, description=f"File not found: {filename}")
+    return send_from_directory(os.path.join(BASE_DIR, folder), filename)
+
 
 @app.route("/")
 def index():

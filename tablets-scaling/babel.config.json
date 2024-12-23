@@ -1,0 +1,12 @@
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react"],
+  "plugins": [
+    [
+      "@babel/plugin-transform-modules-umd",
+      {
+        "globals": { "react": "React", "react-bootstrap": "ReactBootstrap" },
+        "exactGlobals": true
+      }
+    ]
+  ]
+}
