@@ -46,7 +46,7 @@ resource "aws_instance" "instance" {
       "echo '/home/scyllaadm/benchmark.sh' >> /home/scyllaadm/start.sh",
       "sudo mv /home/scyllaadm/cassandra-stress.service /etc/systemd/system/cassandra-stress.service ",
       "sudo mv /home/scyllaadm/cassandra-stress-benchmark.service /etc/systemd/system/cassandra-stress-benchmark.service ", "sudo systemctl daemon-reload ",
-      "sudo systemctl start cassandra-stress.service",
+      #"sudo systemctl start cassandra-stress.service",
     ]
   }
 

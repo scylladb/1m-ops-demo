@@ -1,0 +1,4 @@
+Flask==3.0.3
+Flask-SocketIO==5.4.1
+ansible==10.6.0
+flask-cors==5.0.0
