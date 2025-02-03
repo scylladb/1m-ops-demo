@@ -1,0 +1,15 @@
+$fonts-url: '../assets/fonts/';
+
+@font-face {
+  font-family: 'RobotoFlex';
+  font-style: normal;
+  src: url(#{$fonts-url}RobotoFlex.ttf) format('truetype');
+  font-weight: 100 1000;
+}
+
+@font-face {
+  font-family: 'RobotoMono';
+  font-style: normal;
+  src: url(#{$fonts-url}RobotoMono.ttf) format('truetype');
+  font-weight: 100 1000;
+}

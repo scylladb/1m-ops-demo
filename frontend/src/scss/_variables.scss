@@ -1,0 +1,197 @@
+// Fonts
+$primary-font: 'Roboto';
+$code-font: 'Roboto Mono';
+$font-size-h1: 34px;
+$font-size-h2: 27px;
+$font-size-h3: 21px;
+$font-size-h4: 17px;
+$font-size-h5: 14px;
+$font-size-h6: 10px;
+$body-font-size: $font-size-h5; // Alias
+$font-lead: $font-size-h4; // Alias
+$font-small: $font-size-h6; // Alias
+$small-label-font-size: 8px;
+
+// Color system
+$gray-50: #f7fafc;
+$gray-100: #edf5f7;
+$gray-200: #d8e5eb;
+$gray-300: #c3d5de;
+$gray-400: #aec0cf;
+$gray-500: #95a7ba;
+$gray-600: #7b8ba2;
+$gray-700: #616d87;
+$gray-800: #4b546f;
+$gray-900: #383d57;
+$gray-950: #2f324b;
+$black: #23263b;
+$white: #fff;
+
+// Brand Colors
+$brand-open-source-bg: #dee8fb;
+$brand-teal: #57d1e5;
+$brand-cloud-bg: #c4e7fc;
+$brand-technology-bg: #5d99cd;
+$brand-company-product-bg: #4676df;
+$brand-resource-bg: #245eb2;
+$brand-teal-intense: #00e5ff;
+$brand-teal-muted: #24d5f2;
+$brand-secondary: #3a2d55;
+$brand-cobalt-blue: #2618fa;
+$brand-blue: #326de6;
+$brand-green: #4caf50;
+$brand-yellow: #f79000;
+$brand-orange: #ff5500;
+$brand-red: #ce291f;
+$brand-violet: #c26aff;
+$brand-pink: #ff2cdf;
+
+$primary: #2196f3;
+$secondary: #4458a3;
+$success: $brand-green;
+$info: $brand-blue;
+$warning: $brand-yellow;
+$danger: $brand-red;
+$light: $gray-100;
+$dark: $black;
+
+// Cloud Colors
+$cloud-primary: #2196f3;
+$cloud-brand-primary: $brand-teal; // Alias
+$cloud-brand-primary-dark: #27b6db;
+$cloud-brand-primary-light: #5addf2;
+$cloud-brand-primary-lighter: #baf3fc;
+$cloud-brand-primary-bg: #d9faff;
+$cloud-brand-primary-hover: rgba(87, 209, 229, 0.1); // #57D1E51A
+$cloud-primary-dark: #0288d1;
+$cloud-primary-light: #42a5f5;
+$cloud-primary-lighter: #b1defd;
+$cloud-primary-bg: #d6f0ff;
+$cloud-secondary: #4458a3;
+$cloud-primary-border: rgba(33, 150, 243, 0.5); // #2196F380
+$cloud-primary-hover: rgba(33, 150, 243, 0.04); // #2196F30A
+$cloud-secondary-dark: #33427a;
+$cloud-secondary-light: #6e86fa;
+$cloud-secondary-lighter: #c2cefe;
+$cloud-secondary-bg: #dee5ff;
+$cloud-bg-color: #f6f8ff;
+$cloud-light: $gray-100; // Alias
+$cloud-card-bg: $white; // Alias
+$cloud-card-bg-dark: $gray-50; // Alias
+$cloud-secondary-border: rgba(68, 88, 163, 0.5); // #4458A380
+$cloud-well-bg: #f0f2f8;
+$cloud-secondary-hover: rgba(68, 88, 163, 0.04); // #4458A30A
+$cloud-code-bg: $gray-50; // Alias
+$cloud-border-color: #eeeeee;
+$cloud-border-dark: #c6d5e1;
+$cloud-tooltip-bg: rgba(35, 38, 59, 0.85); // #23263BD9
+$cloud-disabled-bg: $gray-200; // Alias
+$cloud-tooltip-text: $gray-200; // Alias
+$cloud-modal-backdrop: rgba(35, 38, 59, 0.5); // #23263B80
+
+// Cloud Semantic Colors
+$cloud-success: #4caf50;
+$cloud-success-dark: #36784c;
+$cloud-success-light: #77d464;
+$cloud-success-bg: #e8fcf0;
+$cloud-success-lighter: #ccf2cd;
+$cloud-success-border: rgba(76, 175, 80, 0.5); // #4CAF5080
+$cloud-success-hover: rgba(76, 175, 80, 0.04); // #4CAF500A
+
+$cloud-info: $info; // Alias
+$cloud-info-dark: #3161c4;
+$cloud-info-light: #4db5ff;
+$cloud-info-lighter: #c0e3fd;
+$cloud-info-bg: #e6f2fc;
+$cloud-info-border: rgba(50, 109, 230, 0.5); // #326DE680
+$cloud-info-hover: rgba(50, 109, 230, 0.04); // #326DE60A
+
+$cloud-warning: #f79000;
+$cloud-warning-dark: #e46b1a;
+$cloud-warning-light: #ffbb33;
+$cloud-warning-lighter: #fde8bb;
+$cloud-warning-bg: #fcf6e8;
+$cloud-warning-border: rgba(247, 144, 0, 0.5); // #F7900080
+$cloud-warning-hover: rgba(247, 144, 0, 0.04); // #F790000A
+
+$cloud-error: $danger; // Alias
+$cloud-error-dark: #942c2c;
+$cloud-error-light: #ff6857;
+$cloud-error-lighter: #fdcdc4;
+$cloud-error-bg: #fceee8;
+$cloud-error-border: rgba(206, 41, 31, 0.5); // #CE291F80
+$cloud-error-hover: rgba(206, 41, 31, 0.04); // #CE291F0A
+
+$cloud-link-color: $cloud-primary-dark; // Alias
+$cloud-text-disabled: $gray-500; // Alias
+$cloud-text-muted: $gray-700; // Alias
+$cloud-text-color: $gray-800; // Alias
+$cloud-text-emphasis: $gray-900; // Alias
+$cloud-navbar-text-color: $gray-100; // Alias
+$cloud-alert-text: $gray-50; // Alias
+$cloud-alert-text-dark: $gray-800; // Alias
+$cloud-navbar-text-emphasis: $white; // Alias
+$cloud-navbar-text-muted: $gray-200; // Alias
+$cloud-layout-border: #e7e7e7;
+
+// Spacing
+$spacer: 2rem;
+$spacer-xxs: $spacer * 0.24;
+$spacer-xs: $spacer * 0.38;
+$spacer-sm: $spacer * 0.62;
+$spacer-md: $spacer * 1.62;
+$spacer-lg: $spacer * 2.62;
+$spacer-xl: $spacer * 4.24;
+
+$spacers: (
+  0: 0,
+  1: $spacer * 0.24,
+  2: $spacer * 0.38,
+  3: $spacer * 0.62,
+  4: $spacer,
+  5: $spacer * 1.62,
+  6: $spacer * 2.62,
+  7: $spacer * 4.24,
+);
+
+// Body
+$body-color: $cloud-text-color;
+$body-bg: $cloud-bg-color;
+
+// Typography
+$font-family-sans-serif:
+  RobotoFlex,
+  system-ui,
+  -apple-system,
+  'Segoe UI',
+  Roboto,
+  'Helvetica Neue',
+  'Noto Sans',
+  'Liberation Sans',
+  Arial,
+  sans-serif,
+  'Apple Color Emoji',
+  'Segoe UI Emoji',
+  'Segoe UI Symbol',
+  'Noto Color Emoji';
+$font-family-monospace: RobotoMono, SFMono-Regular, Menlo, Monaco, Consolas,
+  'Liberation Mono', 'Courier New', monospace;
+
+$h1-font-size: $font-size-h1;
+$h2-font-size: $font-size-h2;
+$h3-font-size: $font-size-h3;
+$h4-font-size: $font-size-h4;
+$h5-font-size: $font-size-h5;
+$h6-font-size: $font-size-h6;
+
+// Buttons
+$btn-color: $light;
+
+// Navs
+$nav-link-padding-x: 1.61rem;
+
+$nav-tabs-border-color: transparent;
+$nav-tabs-link-hover-border-color: transparent;
+$nav-tabs-link-active-color: $cloud-brand-primary;
+$nav-tabs-link-active-bg: transparent;
+$nav-tabs-link-active-border-color: transparent;
