@@ -1,0 +1,16 @@
+# top-most EditorConfig file
+root = true
+
+# LF newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+# charset
+[*.{js,ts,tsx}]
+charset = utf-8
+
+# indents
+[*.{js,ts,tsx}]
+indent_style = space
+indent_size = 2

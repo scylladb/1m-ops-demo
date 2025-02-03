@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "noUncheckedSideEffectImports": true,
+
+    /* type checking */
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "exactOptionalPropertyTypes": true,
+    "noUnusedLocals": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedParameters": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+
+    /* interop */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    /* projects */
+    "incremental": true,
+    "allowJs": true
+  },
+  "include": ["src", "vite.config.ts"],
+  "exclude": ["node_modules"]
+}

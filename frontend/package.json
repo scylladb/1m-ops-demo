@@ -1,0 +1,40 @@
+{
+  "name": "scylladb-tablets-scaling",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint .",
+    "lint-staged": "lint-staged",
+    "preview": "vite preview",
+    "prepare": "cd ../../ && husky tablets-scaling/frontend/.husky"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "react": "^18.3.1",
+    "react-bootstrap": "^2.10.7",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.4.0",
+    "socket.io-client": "^4.8.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "eslint": "^9.17.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.16",
+    "globals": "^15.14.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.3.0",
+    "prettier": "^3.4.2",
+    "sass-embedded": "^1.83.4",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.18.2",
+    "vite": "^6.0.5"
+  }
+}
