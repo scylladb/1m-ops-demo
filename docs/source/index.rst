@@ -14,7 +14,7 @@
   :button_icon: icon-github
   :button_style: bold
   :button_url: https://github.com/scylladb/1m-ops-demo
-  :button_text: GitHub repository
+  :button_text: Source code
 
   Test and benchmark ScyllaDB under a 1 million operations per second workload.
 
