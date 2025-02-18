@@ -12,6 +12,7 @@
   :title: 1 million ops/sec ScyllaDB demos with Terraform
   :image: /_static/img/mascots-2/cloud.svg
   :button_icon: icon-github
+  :button_style: bold
   :button_url: https://github.com/scylladb/1m-ops-demo
   :button_text: GitHub repository
 
@@ -19,14 +20,13 @@
 
 .. raw:: html
 
-  <div class="landing__content landing__content">
+  <div class="landing__content">
 
 .. raw:: html
 
   <div class="topics-grid grid-container full">
 
   <div class="grid-x grid-margin-x">
-
 
 .. topic-box::
   :title: ScyllaDB Cloud 1M ops/sec
@@ -45,7 +45,6 @@
   :anchor: Get started
 
   Set up 1 million operations/second demo with ScyllaDB Enterprise
-
 
 .. topic-box::
   :title: Set Up Your Own 1M OPS Benchmark - blog
@@ -68,8 +67,3 @@
    Getting started with Enterprise <getting-started-enterprise>
    Blogpost - Set Up Your Own 1M OPS Benchmark <https://www.scylladb.com/2023/11/29/set-up-your-own-1m-ops-benchmark-with-scylladb-cloud-terraform/>
    GitHub repository <https://github.com/scylladb/1m-ops-demo>
-
-
-
-
-
