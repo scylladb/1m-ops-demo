@@ -8,6 +8,6 @@ export const HeaderNav = (): ReactElement => (
       alt="ScyllaDB"
     />
 
-    <h3>Demo</h3>
+    <h3>DEMO UI</h3>
   </div>
 );
