@@ -34,7 +34,7 @@ extensions = [
     "sphinx_sitemap",
     "sphinx_scylladb_theme",
     "sphinx_multiversion",  # optional
-    "recommonmark",  # optional
+    "myst_parser",  # optional
 ]
 
 # The suffix(es) of source filenames.
@@ -59,6 +59,10 @@ pygments_style = "sphinx"
 rst_prolog = """
 .. |rst| replace:: restructuredText
 """
+
+# -- Options for myst parser ----------------------------------------
+myst_enable_extensions = ["colon_fence"]
+
 
 # -- Options for not found extension
 
@@ -110,6 +114,7 @@ html_theme_options = {
     "github_repository": "scylladb/video-streaming",
     "site_description": "ScyllaDB video streaming sample app",
     "hide_version_dropdown": ["main"],
+    "hide_versions_dropdown": "true",
     "versions_unstable": UNSTABLE_VERSIONS,
     "versions_deprecated": DEPRECATED_VERSIONS,
 }
