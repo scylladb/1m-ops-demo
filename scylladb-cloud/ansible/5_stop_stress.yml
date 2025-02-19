@@ -6,5 +6,5 @@
   tasks: 
     - name: Stop CQL Stress
       ansible.builtin.systemd_service:
-        name: cassandra-stress.service
+        name: cql-stress.service
         state: stopped

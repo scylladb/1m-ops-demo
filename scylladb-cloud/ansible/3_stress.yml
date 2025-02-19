@@ -6,7 +6,7 @@
   tasks: 
     - name: Start CQL Stress
       ansible.builtin.systemd_service:
-        name: cassandra-stress.service
+        name: cql-stress.service
         state: started
         daemon_reload: True
 
