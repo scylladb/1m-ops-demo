@@ -22,13 +22,13 @@ const Banner = (): ReactElement => (
       />
 
       <h2>
-        1 million ops/sec <br />
-        ScyllaDB demos with Terraform
+        ScyllaDB DEMOs with Terraform
       </h2>
 
       <p className="lead">
-        Test and benchmark ScyllaDB under a 1 million operations per second
-        workload.
+        Test and benchmark ScyllaDB under different scenarios and
+        workloads.
+        Repository: <a target="_blank" href="https://github.com/scylladb/1m-ops-demo">https://github.com/scylladb/1m-ops-demo</a>
       </p>
     </Card.Body>
   </Card>

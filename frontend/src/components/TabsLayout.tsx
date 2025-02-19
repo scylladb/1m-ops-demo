@@ -16,12 +16,12 @@ interface SectionTab {
 }
 
 const tabs: readonly SectionTab[] = [
-  {
-    key: 'dashboard',
-    title: 'Dashboard',
-    Icon: FaGaugeSimple,
-    Component: Dashboard,
-  },
+ // {
+   // key: 'dashboard',
+   // title: 'Dashboard',
+   // Icon: FaGaugeSimple,
+   // Component: Dashboard,
+  //},
   {
     key: 'scenarios',
     title: 'Scenarios',
@@ -38,7 +38,7 @@ const tabs: readonly SectionTab[] = [
 
 export const TabsLayout = (): ReactElement => (
   <Tabs
-    defaultActiveKey="dashboard"
+    defaultActiveKey="scenarios"
     id="controlTabs"
     className="nav-tabs nav-fill"
   >
