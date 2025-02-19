@@ -1,0 +1,10 @@
+---
+- name: Stop loader
+  hosts: stress
+  become: True
+
+  tasks: 
+    - name: Stop CQL Stress
+      ansible.builtin.systemd_service:
+        name: cql-stress.service
+        state: stopped
