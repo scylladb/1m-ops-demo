@@ -43,7 +43,7 @@ export const Slider = ({
         </div>
       </Col>
 
-      <div style={{ width: '90px' }}>
+      <div style={{ width: '115px' }}>
         <Form.Control
           type="number"
           value={value}

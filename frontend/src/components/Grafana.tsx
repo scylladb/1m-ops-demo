@@ -25,6 +25,8 @@ export const GrafanaContainer = (): ReactElement => {
   const [fetchIsPending, setFetchIsPending] = useState(true);
   const [isFetching, setIsFetching] = useState(false);
   const [grafanaUrls, setGrafanaUrls] = useState<GrafanaURLs | null>(null);
+  const [fileAvailable, setFileAvailable] = useState(false);
+
 
   const fetchAndSetGrafanaUrls = useCallback(async (): Promise<void> => {
     setFetchIsPending(false);
@@ -56,9 +58,21 @@ export const GrafanaContainer = (): ReactElement => {
   }, []);
 
   useEffect(() => {
-    if (fetchIsPending && !isFetching) {
-      void fetchAndSetGrafanaUrls();
-    }
+    const interval = setInterval(async () => {
+      try {
+        const response = await fetch(grafanaUrlsPath, { method: 'HEAD' });
+
+        if (response.ok) {
+          clearInterval(interval); // Stop checking if the file is found
+          setFileAvailable(true);
+          fetchAndSetGrafanaUrls(); // Fetch data
+        }
+      } catch (error) {
+        console.log('File not available yet, retrying...');
+      }
+    }, 2000);
+
+    return () => clearInterval(interval);
   }, [fetchIsPending, isFetching, fetchAndSetGrafanaUrls]);
 
   return (
@@ -81,10 +95,10 @@ export const GrafanaContainer = (): ReactElement => {
           <ConsoleOutput />
         </Tab>
 
-        {fetchIsPending || isFetching ? (
+        {((fetchIsPending || isFetching) && !fileAvailable) ? (
           <Tab
             eventKey="loading"
-            title="Loading Grafana..."
+            title="&#9203;"
           />
         ) : grafanaUrls ? (
           Object.entries(grafanaUrls["grafana_urls"]).slice(1).map(([key, url]) => ( // skip first entry as it's not URL
@@ -120,7 +134,7 @@ export const GrafanaContainer = (): ReactElement => {
 
 const ConsoleOutput = (): ReactElement => {
   const { socketRef } = useSocketContext();
-  const [output, setOutput] = useState('[Welcome to ScyllaDB Tech Demo]');
+  const [output, setOutput] = useState('[Welcome to ScyllaDB DEMO UI]');
   const outputRef = useRef<HTMLPreElement | null>(null);
 
   // Set up socket connection and listen for playbook output

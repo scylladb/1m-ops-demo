@@ -1,3 +1,4 @@
+
 #
 # Set the following variables (mandatory)
 #
@@ -6,41 +7,41 @@
 variable "scylla_cloud_token" {
   description = "ScyllaDB Cloud API token"
   type        = string
-  default     = "ADD-YOUR-API-TOKEN-HERE"
+  default     = ""
 }
 
 # ScyllaDB Cloud region
-variable "scylla_cloud_region" {
+variable "region" {
   description = "ScyllaDB Cloud region of the cluster"
   type        = string
-  default     = "us-east-1"
+  default     = ""
 }
 
 # SSH private key for EC2 instance access
 variable "ssh_private_key" {
   description = "SSH private key location for EC2 instance access"
   type        = string
-  default     = "/home/user/Documents/your-private-key.pem"
+  default     = ""
 }
 
 variable "aws_key_pair" {
   description = "Key pair name in AWS"
   type        = string
-  default     = "my-key-pair"
+  default     = ""
 }
 
 # AWS credentials file
-variable "aws_creds" {
+variable "aws_creds_file" {
   description = "AWS credentials location"
   type        = string
-  default     = "/home/user/.aws/credentials"
+  default     = ""
 }
 
 # AWS Profile to Use
-variable "aws_profile" {
+variable "aws_creds_profile" {
    description = "AWS Profile to Use"
    type        = string
-   default     = "DeveloperAccessRole"
+   default     = ""
 }
 ################################################
 
@@ -50,11 +51,24 @@ variable "aws_profile" {
 #
 
 # Number of threads for the Cassandra stress tool
-variable "num_threads" {
+variable "loader_ops_per_sec" {
   description = "Number of threads for the Cassandra stress tool"
   type        = string
   default     = "350"
 }
+
+variable "loader_read_ratio" {
+  description = "Read ratio"
+  type        = string
+  default     = "7"
+}
+
+variable "loader_write_ratio" {
+  description = "Write ratio"
+  type        = string
+  default     = "3"
+}
+
 
 # Total number of operations to run
 variable "num_of_ops" {

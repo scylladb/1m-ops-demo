@@ -11,27 +11,37 @@ import {
 
 const ec2InstanceTypes = [
   't2.micro',
-  't2.small',
-  't2.medium',
-  't3.micro',
-  't3.small',
-  't3.medium',
+  'i4i.large',
+  'i4i.xlarge',
+  'i4i.2xlarge',
+  'i4i.4xlarge',
+  'i4i.8xlarge',
+  'i4i.12xlarge',
+  'i4i.16xlarge'
 ] as const;
 
-type EC2InstanceType = (typeof ec2InstanceTypes)[number];
+export type EC2InstanceType = (typeof ec2InstanceTypes)[number];
 
 const isEC2InstanceType = (value: string): value is EC2InstanceType =>
   ec2InstanceTypes.find((instanceType) => instanceType === value) !== undefined;
 
-export const ClusterProperties = (): ReactElement => {
-  const [isRunning, setIsRunning] = useState(false);
-  const [numberOfNodes, setNumberOfNodes] = useState(3);
-  const [instanceType, setInstanceType] = useState<EC2InstanceType>('t2.micro');
+interface ClusterPropertiesProps {
+  numberOfNodes: number;
+  setNumberOfNodes: (value: number) => void;
+  instanceType: EC2InstanceType;
+  setInstanceType: (value: EC2InstanceType) => void;
+}
 
+export const ClusterProperties = ({
+  numberOfNodes,
+  setNumberOfNodes,
+  instanceType,
+  setInstanceType,
+}: ClusterPropertiesProps): ReactElement => {
   return (
     <Card>
       <Card.Body>
-        <SectionHeader>Cluster Properties</SectionHeader>
+        <SectionHeader>ScyllaDB cluster</SectionHeader>
 
         <PropertiesForm utilClassesString="mb-3">
           <Slider
@@ -72,30 +82,6 @@ export const ClusterProperties = (): ReactElement => {
               ))}
             </Form.Select>
           </Form.Group>
-
-          <ButtonsContainer>
-            <Button
-              variant="primary"
-              onClick={() => {
-                // TODO: Implement save logic
-                console.log('Saving cluster properties...');
-              }}
-            >
-              Save
-            </Button>
-
-            <Button
-              variant={isRunning ? 'warning' : 'success'}
-              iconProps={{
-                Icon: isRunning ? FaStop : FaPlay,
-                utilClassesString: 'me-2',
-              }}
-              onClick={() => {
-                setIsRunning((prevIsRunning) => !prevIsRunning);
-                console.log(`Cluster ${isRunning ? 'stopped' : 'started'}.`);
-              }}
-            >{`${isRunning ? 'Stop' : 'Run'} Cluster`}</Button>
-          </ButtonsContainer>
         </PropertiesForm>
       </Card.Body>
     </Card>
