@@ -3,7 +3,7 @@
 #
 
 # AWS credentials file
-variable "path_to_aws_cred_file" {
+variable "aws_creds_file" {
   description = "AWS credentials location"
   type        = string
   default     = "/home/user/.aws/credentials"
@@ -23,16 +23,16 @@ variable "ssh_private_key" {
   default     = "/home/user/key.pem"
 }
 
-variable "aws_key_pair_name" {
+variable "aws_key_pair" {
   description = "Key pair name in AWS"
   type        = string
   default     = "key-pair"
 }
 
-variable "aws_region" {
-  description = "AWS region"
+variable "region" {
+  description = "Region of the cluster"
   type        = string
-  default     = "us-east-2"
+  default     = ""
 }
 
 # Amazon Machine Image (AMI) ID
