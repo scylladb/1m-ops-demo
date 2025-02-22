@@ -9,36 +9,52 @@ import {
   PropertiesForm,
 } from '@/components/Dashboard/Layout';
 
-export const LoaderProperties = (): ReactElement => {
-  const [isRunning, setIsRunning] = useState(false);
-  const [readOpsPerSec, setReadOpsPerSec] = useState(1000);
-  const [writeOpsPerSec, setWriteOpsPerSec] = useState(500);
-  const [numberOfLoaders, setNumberOfLoaders] = useState(2);
+interface LoaderPropertiesProps {
+  numberOfLoaders: number;
+  setNumberOfLoaders: (value: number) => void;
+  readOps: number;
+  setReadOps: (value: number) => void;
+  writeOps: number;
+  setWriteOps: (value: number) => void;
+}
+
+const OPS_SLIDER_MIN_VALUE = 500;
+const OPS_SLIDER_MAX_VALUE = 10000000;
+const OPS_SLIDER_STEP_VALUE = 10000;
+
+export const LoaderProperties = ({
+  numberOfLoaders,
+  setNumberOfLoaders,
+  readOps,
+  setReadOps,
+  writeOps,
+  setWriteOps
+}: LoaderPropertiesProps): ReactElement =>{
 
   return (
     <Card>
       <Card.Body>
-        <SectionHeader>Loader Properties</SectionHeader>
+        <SectionHeader>Workload</SectionHeader>
 
         <PropertiesForm>
           <Slider
-            value={readOpsPerSec}
-            min={500}
-            max={5000}
-            step={100}
+            value={readOps}
+            min={OPS_SLIDER_MIN_VALUE}
+            max={OPS_SLIDER_MAX_VALUE}
+            step={OPS_SLIDER_STEP_VALUE}
             onChange={(event) => {
-              setReadOpsPerSec(Number(event.target.value));
+              setReadOps(Number(event.target.value));
             }}
             label="Read Ops/sec"
           />
 
           <Slider
-            value={writeOpsPerSec}
-            min={100}
-            max={5000}
-            step={100}
+            value={writeOps}
+            min={OPS_SLIDER_MIN_VALUE}
+            max={OPS_SLIDER_MAX_VALUE}
+            step={OPS_SLIDER_STEP_VALUE}
             onChange={(event) => {
-              setWriteOpsPerSec(Number(event.target.value));
+              setWriteOps(Number(event.target.value));
             }}
             label="Write Ops/sec"
           />
@@ -46,7 +62,7 @@ export const LoaderProperties = (): ReactElement => {
           <Slider
             value={numberOfLoaders}
             min={1}
-            max={20}
+            max={10}
             step={1}
             onChange={(event) => {
               setNumberOfLoaders(Number(event.target.value));
@@ -54,29 +70,6 @@ export const LoaderProperties = (): ReactElement => {
             label="Number of Loader Instances"
           />
 
-          <ButtonsContainer>
-            <Button
-              variant="primary"
-              onClick={() => {
-                // TODO: Implement save logic
-                console.log('Saving loader properties...');
-              }}
-            >
-              Save
-            </Button>
-
-            <Button
-              variant={isRunning ? 'warning' : 'success'}
-              iconProps={{
-                Icon: isRunning ? FaStop : FaPlay,
-                utilClassesString: 'me-2',
-              }}
-              onClick={() => {
-                setIsRunning((prevIsRunning) => !prevIsRunning);
-                console.log(`Loader ${isRunning ? 'stopped' : 'started'}.`);
-              }}
-            >{`${isRunning ? 'Stop' : 'Start'} Loader`}</Button>
-          </ButtonsContainer>
         </PropertiesForm>
       </Card.Body>
     </Card>
