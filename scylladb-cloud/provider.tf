@@ -1,5 +1,5 @@
 provider "aws" {
-  region                   = var.scylla_cloud_region
-  shared_credentials_files = ["${var.aws_creds}"]
-  profile                  = "${var.aws_profile}"
+  region                   = var.region
+  shared_credentials_files = ["${var.aws_creds_file}"]
+  profile                  = "${var.aws_creds_profile}"
 }
