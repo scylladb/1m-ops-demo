@@ -6,27 +6,27 @@
 variable "aws_creds_file" {
   description = "AWS credentials location"
   type        = string
-  default     = "/home/user/.aws/credentials"
+  default     = ""
 }
 
 # AWS credentials file
 variable "aws_creds_profile" {
   description = "AWS credentials profile"
   type        = string
-  default     = "DeveloperAccessRole"
+  default     = ""
 }
 
 # SSH private key for EC2 instance access
 variable "ssh_private_key" {
   description = "SSH private key location for EC2 instance access"
   type        = string
-  default     = "/home/user/key.pem"
+  default     = ""
 }
 
 variable "aws_key_pair" {
   description = "Key pair name in AWS"
   type        = string
-  default     = "key-pair"
+  default     = ""
 }
 
 variable "region" {
@@ -64,17 +64,17 @@ variable "loader_ami_id" {
 #
 
 # Scylla instance type
-variable "scylla_instance_type" {
+variable "scylla_node_type" {
   description = "Type of the EC2 instance"
   type        = string
-  default     = "i4i.2xlarge"
+  default     = ""
 }
 
 # Loader instance type
 variable "loader_instance_type" {
   description = "Type of the EC2 instance"
   type        = string
-  default     = "i4i.8xlarge"
+  default     = "i4i.12xlarge"
 }
 
 # Virtual Private Cloud (VPC) IP range
@@ -92,7 +92,7 @@ variable "subnet_count" {
 }
 
 # Amazon Machine Image (AMI) Username
-variable "instance_username" {
+variable "scylla_user" {
   description = "username for the ScyllaDB AMI"
   type        = string
   default     = "scyllaadm"
@@ -127,10 +127,22 @@ variable "num_of_ops" {
 }
 
 # Throttling for the Cassandra stress tool
-variable "throttle" {
+variable "loader_ops_per_sec" {
   description = "Throttling for the Cassandra stress tool (in ops/sec)"
   type        = string
-  default     = "1200000/s"
+  default     = ""
+}
+
+variable "loader_read_ratio" {
+  description = "Read ratio"
+  type        = string
+  default     = "7"
+}
+
+variable "loader_write_ratio" {
+  description = "Write ratio"
+  type        = string
+  default     = "3"
 }
 
 # Environment name
@@ -157,4 +169,12 @@ variable "loader_node_count" {
 
 locals {
   scylla_ips = join(",", concat(aws_instance.scylladb_seed.*.private_ip, aws_instance.scylladb_nonseeds.*.private_ip))
+}
+
+# ScyllaDB Cloud API token
+# Not needed for this demo, but needed by DEMO UI
+variable "scylla_cloud_token" {
+  description = "ScyllaDB Cloud API token"
+  type        = string
+  default     = ""
 }
