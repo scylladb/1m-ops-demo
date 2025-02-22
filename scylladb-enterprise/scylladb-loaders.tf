@@ -17,37 +17,40 @@ resource "aws_instance" "loader_instance" {
     create = "10m"
   }
 
-  # Provision files to each instance. Copy three files from the current directory 
-  # to the remote instance: stress.yml, cassandra-stress.service, and cassandra-stress-benchmark.service.
+  # Provision files to each instance. Copy loader files.
 
   provisioner "file" {
-    source      = "./stress/stress.yml"
-    destination = "/home/scyllaadm/stress.yml"
+    source      = "../loader/Dockerfile"
+    destination = "/home/scyllaadm/Dockerfile"
   }
   provisioner "file" {
-    source      = "./stress/cassandra-stress.service"
-    destination = "/home/scyllaadm/cassandra-stress.service"
+    source      = "../loader/loader.sh"
+    destination = "/home/scyllaadm/loader.sh"
   }
   provisioner "file" {
-    source      = "./stress/cassandra-stress-benchmark.service"
-    destination = "/home/scyllaadm/cassandra-stress-benchmark.service"
+    source      = "../loader/docker.sh"
+    destination = "/home/scyllaadm/docker.sh"
   }
 
-  # Run remote-exec commands on each instance. It stops the scylla-server, creates a start.sh script, 
-  # creates a benchmark.sh script, sets permissions on the scripts, moves two files to /etc/systemd/system/, 
-  # runs daemon-reload, and starts the cassandra-stress service.
+  provisioner "file" {
+    source      = "../loader/cql-stress.service"
+    destination = "/home/scyllaadm/cql-stress.service"
+  }
+
+  # Build loader app 
 
   provisioner "remote-exec" {
     inline = [
       "sudo systemctl stop scylla-server |tee scylla.log",
-      "echo '/usr/bin/cassandra-stress user profile=./stress.yml n=${var.num_of_ops} cl=local_quorum no-warmup \"ops(insert=1)\" -rate threads=${var.num_threads} fixed=120000/s -mode native cql3 user=scylla password=pass -log file=populating.log -pop seq=1..100M -node ${local.scylla_ips}' > start.sh",
-      "echo '/usr/bin/cassandra-stress user profile=./stress.yml duration=24h no-warmup cl=local_quorum \"ops(add_sensor_data=1,get_sensor_data=3)\" -rate threads=${var.num_threads} fixed=${var.throttle} -mode native cql3 user=scylla password=pass -log file=benchmarking.log -node ${local.scylla_ips}' > benchmark.sh",
-      "sudo chmod +x start.sh benchmark.sh",
-      "echo '/home/scyllaadm/benchmark.sh' >> /home/scyllaadm/start.sh",
-      "sudo mv /home/scyllaadm/cassandra-stress.service /etc/systemd/system/cassandra-stress.service ",
-      "sudo mv /home/scyllaadm/cassandra-stress-benchmark.service /etc/systemd/system/cassandra-stress-benchmark.service ",
+      "sudo chmod +x /home/scyllaadm/docker.sh",
+      "sudo /home/scyllaadm/docker.sh",
+      "sudo systemctl restart docker",
+      "cd /home/scyllaadm/ && sudo docker build -t loader .",
+      "echo 'sudo docker run loader ${var.loader_ops_per_sec} ${var.loader_read_ratio} ${var.loader_write_ratio} \"${local.scylla_ips}\" \"scylla\" \"pass\"' > start.sh",
+      "sudo chmod +x start.sh",
+      "sudo mv /home/scyllaadm/cql-stress.service /etc/systemd/system/cql-stress.service ",
       "sudo systemctl daemon-reload ",
-      "sudo systemctl start cassandra-stress.service",
+      "sudo systemctl start cql-stress.service",
     ]
   }
 
@@ -55,7 +58,7 @@ resource "aws_instance" "loader_instance" {
   # The coalesce function is used to select the public IP address of ScyllaDB Nodes.
   connection {
     type        = "ssh"
-    user        = var.instance_username
+    user        = var.scylla_user
     private_key = file(var.ssh_private_key)
     host        = coalesce(self.public_ip, self.private_ip)
     agent       = true
