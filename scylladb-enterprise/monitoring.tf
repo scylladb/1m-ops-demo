@@ -1,7 +1,7 @@
 resource "aws_instance" "scylladb-monitoring" {
   ami           = var.monitoring_ami_id
   instance_type = var.monitoring_instance_type
-  key_name      = var.aws_key_pair_name
+  key_name      = var.aws_key_pair
 
   security_groups = [aws_security_group.sg.id]
   subnet_id       = element(aws_subnet.public_subnet.*.id, 0)
@@ -29,7 +29,7 @@ resource "aws_instance" "scylladb-monitoring" {
     content = templatefile("monitoring/configure_monitoring.sh.tpl", {
       CLUSTER_NAME   = var.custom_name,
       scylla_servers = join("\n", formatlist("  - %s:9180", concat(aws_instance.scylladb_seed.*.private_ip, aws_instance.scylladb_nonseeds.*.private_ip))),
-      DC_NAME        = var.aws_region
+      DC_NAME        = var.region
     })
     destination = "/tmp/configure_monitoring.sh"
 
@@ -61,7 +61,7 @@ resource "aws_instance" "scylladb-monitoring" {
       "export docker=/usr/bin/docker",
       "chmod +x ./start-all.sh",
       "chmod +x ./versions.sh",
-      "bash ./start-all.sh -d prometheus_data",
+      "bash ./start-all.sh -d prometheus_data --no-loki --no-renderer --no-alertmanager --no-cas --no-cdc -c GF_SECURITY_ALLOW_EMBEDDING=true",
       "echo 'done'",
     ]
 
@@ -81,6 +81,23 @@ resource "aws_instance" "scylladb-monitoring" {
   }
 }
 
+locals {
+  scylla_grafana_url = format("http://%s:3000", aws_instance.scylladb-monitoring.*.public_ip[0])
+
+  template_file_init = templatefile("${path.module}/../terraform-data.tftpl", {
+    monitoring_url = local.scylla_grafana_url
+    scylla_version = "6-2"
+    is_scylla_cloud = "false"
+    scenario_steps = "\"original_cluster\", \"sample_data\", \"start_stress\", \"scale_out\", \"stop_stress\", \"scale_in\""
+    demo = "scylladb-enterprise"
+  })
+}
+
+resource "local_file" "grafana_urls" {
+  content  = local.template_file_init
+  filename = "${path.module}/../frontend/public/data/terraform-data.json"
+}
+
 output "monitoring_url" {
-  value = format("http://%s:3000", aws_instance.scylladb-monitoring.*.public_ip[0])
+  value = local.scylla_grafana_url
 }
