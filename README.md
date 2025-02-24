@@ -22,7 +22,7 @@ Currently supported DEMOs:
     ```
 1. Install DEMO UI application dependencies
 
-    Make sure your are in the root folder of the project.
+    Make sure you are in the root folder of the project.
     
     Install backend dependencies (virtual environment is recommended):
     ```bash
@@ -33,6 +33,18 @@ Currently supported DEMOs:
     ```bash
     cd frontend
     npm install
+    ```
+1. Edit `config.js` to set Terraform variables:
+    ```json
+    {
+        "aws_creds_file": "/home/user/.aws/credentials",
+        "aws_creds_profile": "DeveloperAccessRole",
+        "ssh_private_key": "/home/user/key.pem",
+        "aws_key_pair": "key-par",
+        "region": "us-east-1",
+        "scylla_cloud_token": "API-TOKEN"
+    }
+  
     ```
 1. Run DEMO UI application
     

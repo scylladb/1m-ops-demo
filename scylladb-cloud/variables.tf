@@ -50,11 +50,11 @@ variable "aws_creds_profile" {
 # but you can still modify them if you want to try a different setup
 #
 
-# Number of threads for the Cassandra stress tool
+# Throttling for the Cassandra stress tool
 variable "loader_ops_per_sec" {
-  description = "Number of threads for the Cassandra stress tool"
+  description = "Throttling for the Cassandra stress tool (in ops/sec)"
   type        = string
-  default     = "350"
+  default     = ""
 }
 
 variable "loader_read_ratio" {
@@ -88,7 +88,7 @@ variable "throttle" {
 variable "instance_type" {
   description = "Type of the EC2 instance"
   type        = string
-  default     = "i4i.8xlarge"
+  default     = "i4i.12xlarge"
 }
 
 # Number of Loader instances to create

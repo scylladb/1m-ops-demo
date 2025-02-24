@@ -1,7 +1,7 @@
 resource "aws_instance" "scylladb-monitoring" {
   ami           = var.monitoring_ami_id
   instance_type = var.monitoring_instance_type
-  key_name      = var.aws_key_pair_name
+  key_name      = var.aws_key_pair
 
   security_groups = [aws_security_group.sg.id]
   subnet_id       = element(aws_subnet.public_subnet.*.id, 0)
@@ -32,7 +32,7 @@ resource "aws_instance" "scylladb-monitoring" {
     content = templatefile("monitoring/configure_monitoring.sh.tpl", {
       CLUSTER_NAME   = var.custom_name,
       scylla_servers = join("\n", formatlist("  - %s:9180", concat(aws_instance.scylladb_seed.*.private_ip, aws_instance.scylladb_nonseeds.*.private_ip))),
-      DC_NAME        = var.aws_region
+      DC_NAME        = var.region
     })
     destination = "/tmp/configure_monitoring.sh"
 

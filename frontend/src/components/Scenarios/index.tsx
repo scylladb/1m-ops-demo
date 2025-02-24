@@ -28,7 +28,7 @@ const scenarioCardsProps: readonly ScenarioCardProps[] = [
     Icon: FaDatabase,
     title: 'Set up 3-node cluster',
     description:
-      'Initialize a resilient ScyllaDB cluster with three interconnected nodes, ready for high-performance data operations.',
+      'Set up a ScyllaDB cluster with three nodes.',
     collapseId: 'stepOneCollapse',
   },
   {
@@ -36,7 +36,7 @@ const scenarioCardsProps: readonly ScenarioCardProps[] = [
     Icon: FaRegFileLines,
     title: 'Load sample data',
     description:
-      'Populate the database with predefined sample data, showcasing key-value pairs, relational mappings, or time-series metrics.',
+      'Create schema and insert a sample dataset.',
     collapseId: 'stepTwoCollapse',
   },
   {
@@ -44,7 +44,7 @@ const scenarioCardsProps: readonly ScenarioCardProps[] = [
     Icon: FaRocket,
     title: 'Start loader',
     description:
-      'Simulate real-world traffic by generating a continuous workload on the database to evaluate its performance.',
+      'Start sending read and write requests to the cluster.',
     collapseId: 'stepThreeCollapse',
   },
   {
@@ -52,7 +52,7 @@ const scenarioCardsProps: readonly ScenarioCardProps[] = [
     Icon: FaUpRightAndDownLeftFromCenter,
     title: 'Scale out (add 3 nodes)',
     description:
-      "Seamlessly add three additional nodes to the cluster, enabling automatic data redistribution and increased capacity using ScyllaDB's tablet architecture.",
+      "Start up three nodes and add them to the cluster.",
     collapseId: 'stepFourCollapse',
   },
   {
@@ -60,7 +60,7 @@ const scenarioCardsProps: readonly ScenarioCardProps[] = [
     Icon: FaDownLeftAndUpRightToCenter,
     title: 'Scale in (remove 3 nodes)',
     description:
-      'Simulate real-world traffic by generating a continuous workload on the database to evaluate its performance.',
+      'Remove three nodes (stop the Scylla server on three nodes).',
     collapseId: 'stepFiveCollapse',
   },
   {
@@ -68,7 +68,7 @@ const scenarioCardsProps: readonly ScenarioCardProps[] = [
     Icon: FaStop,
     title: 'Stop loader',
     description:
-      'Simulate real-world traffic by generating a continuous workload on the database to evaluate its performance.',
+      'Stop sending requests.',
     collapseId: 'stepSixCollapse',
   },
 ];
@@ -77,14 +77,24 @@ export const Scenarios = () => {
   const [allowedEventKeys, setAllowedEventKeys] = useState<string[]>([]);
 
   useEffect(() => {
-    fetch('/data/terraform-data.json')
-      .then((response) => response.json())
-      .then((data) => {
-        if (Array.isArray(data.scenario_steps)) {
-          setAllowedEventKeys(data.scenario_steps);
-        }
-      })
-      .catch((error) => console.error('Error loading scenario steps:', error));
+    const interval = setInterval(() => {
+      fetch('/data/terraform-data.json')
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('File not available');
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (Array.isArray(data.scenario_steps)) {
+            setAllowedEventKeys(data.scenario_steps);
+            clearInterval(interval); // Stop once the file is available
+          }
+        })
+        .catch((error) => console.error('Error loading scenario steps:', error));
+    }, 2000);
+  
+    return () => clearInterval(interval); // Cleanup on unmount
   }, []);
 
   return (

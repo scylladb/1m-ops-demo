@@ -15,20 +15,20 @@ interface SectionTab {
   readonly Component: () => ReactElement;
 }
 
-const tabs: readonly SectionTab[] = [
+let tabs: SectionTab[] = [
   {
     key: 'dashboard',
-    title: 'Terraform settings',
+    title: 'Terraform',
     Icon: FaGaugeSimple,
     Component: Dashboard,
   },
-  /*{
+  {
     key: 'scenarios',
     title: 'Scenarios',
     Icon: FaRocket,
     Component: Scenarios,
   },
-  {
+  /*{
     key: 'about',
     title: 'About',
     Icon: FaCircleInfo,
@@ -40,7 +40,14 @@ export const TabsLayout = (): ReactElement => {
   const [showPopup, setShowPopup] = useState(true);
   const [selectedDemo, setSelectedDemo] = useState('scylladb-cloud');
   const handleInit = async () => {
+
+    // hide the scenarios tab if the demo does not support it
+    if (selectedDemo != 'tablets-scaling') tabs = tabs.slice(0, 1);  
+    
+    // exit popup
     setShowPopup(false);
+    
+    // run API request to set chosen demo
     try {
 
       const response = await fetch('http://localhost:5000/choose-demo', {
@@ -84,7 +91,7 @@ export const TabsLayout = (): ReactElement => {
         </Modal.Footer>
       </Modal>
 
-      <Tabs defaultActiveKey="dashboard" id="controlTabs" className="nav-tabs nav-fill">
+      <Tabs defaultActiveKey='dashboard' id="controlTabs" className="nav-tabs nav-fill">
         {tabs.map(({ key, title, Icon, Component }) => (
           <Tab key={key} eventKey={key} title={<TabHeader title={title} Icon={Icon} />}>
             <Component />
