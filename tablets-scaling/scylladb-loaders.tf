@@ -7,7 +7,7 @@ resource "aws_instance" "loader_instance" {
   instance_type   = var.loader_instance_type
   subnet_id       = element(aws_subnet.public_subnet.*.id, count.index)
   security_groups = [aws_security_group.sg.id, ]
-  key_name        = var.aws_key_pair_name
+  key_name        = var.aws_key_pair
   tags = {
     "Name"      = "${var.custom_name}-Loader-${count.index}"
     "CreatedBy" = "scylladb-demo"
