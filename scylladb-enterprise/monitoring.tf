@@ -1,7 +1,7 @@
 resource "aws_instance" "scylladb-monitoring" {
   ami           = var.monitoring_ami_id
   instance_type = var.monitoring_instance_type
-  key_name      = var.aws_key_pair
+  key_name      = aws_key_pair.generated_key.key_name
 
   security_groups = [aws_security_group.sg.id]
   subnet_id       = element(aws_subnet.public_subnet.*.id, 0)
@@ -20,7 +20,7 @@ resource "aws_instance" "scylladb-monitoring" {
     connection {
       type        = "ssh"
       user        = var.instance_username_monitoring
-      private_key = file(var.ssh_private_key)
+      private_key = tls_private_key.private_key.private_key_pem
       host        = self.public_ip
     }
   }
@@ -36,7 +36,7 @@ resource "aws_instance" "scylladb-monitoring" {
     connection {
       type        = "ssh"
       user        = var.instance_username_monitoring
-      private_key = file(var.ssh_private_key)
+      private_key = tls_private_key.private_key.private_key_pem
       host        = self.public_ip
     }
   }
@@ -50,7 +50,7 @@ resource "aws_instance" "scylladb-monitoring" {
     connection {
       type        = "ssh"
       user        = var.instance_username_monitoring
-      private_key = file(var.ssh_private_key)
+      private_key = tls_private_key.private_key.private_key_pem
       host        = self.public_ip
     }
   }
@@ -68,7 +68,7 @@ resource "aws_instance" "scylladb-monitoring" {
     connection {
       type        = "ssh"
       user        = var.instance_username_monitoring
-      private_key = file(var.ssh_private_key)
+      private_key = tls_private_key.private_key.private_key_pem
       host        = self.public_ip
     }
   }
@@ -76,7 +76,7 @@ resource "aws_instance" "scylladb-monitoring" {
   connection {
     type        = "ssh"
     user        = var.instance_username_monitoring
-    private_key = file(var.ssh_private_key)
+    private_key = tls_private_key.private_key.private_key_pem
     host        = self.public_ip
   }
 }

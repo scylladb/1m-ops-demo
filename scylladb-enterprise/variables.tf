@@ -16,19 +16,6 @@ variable "aws_creds_profile" {
   default     = ""
 }
 
-# SSH private key for EC2 instance access
-variable "ssh_private_key" {
-  description = "SSH private key location for EC2 instance access"
-  type        = string
-  default     = ""
-}
-
-variable "aws_key_pair" {
-  description = "Key pair name in AWS"
-  type        = string
-  default     = ""
-}
-
 variable "region" {
   description = "Region of the cluster"
   type        = string

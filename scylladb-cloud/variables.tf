@@ -17,19 +17,6 @@ variable "region" {
   default     = ""
 }
 
-# SSH private key for EC2 instance access
-variable "ssh_private_key" {
-  description = "SSH private key location for EC2 instance access"
-  type        = string
-  default     = ""
-}
-
-variable "aws_key_pair" {
-  description = "Key pair name in AWS"
-  type        = string
-  default     = ""
-}
-
 # AWS credentials file
 variable "aws_creds_file" {
   description = "AWS credentials location"
