@@ -5,7 +5,7 @@ resource "tls_private_key" "private_key" {
 }
 
 resource "aws_key_pair" "generated_key" {
-  key_name   = "DEMO-key"
+  key_name   = "ScyllaDB-Enterprise-DEMO-key"
   public_key = tls_private_key.private_key.public_key_openssh
 }
 
