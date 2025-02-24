@@ -3,7 +3,7 @@
 #
 
 # AWS credentials file
-variable "path_to_aws_cred_file" {
+variable "aws_creds_file" {
   description = "AWS credentials location"
   type        = string
   default     = "/home/user/.aws/credentials"
@@ -20,16 +20,16 @@ variable "aws_creds_profile" {
 variable "ssh_private_key" {
   description = "SSH private key location for EC2 instance access"
   type        = string
-  default     = "key.pem"
+  default     = "/home/user/key.pem"
 }
 
-variable "aws_key_pair_name" {
+variable "aws_key_pair" {
   description = "Key pair name in AWS"
   type        = string
-  default     = "key-pair"
+  default     = "key-par"
 }
 
-variable "aws_region" {
+variable "region" {
   description = "AWS region"
   type        = string
   default     = "us-east-2"
@@ -55,6 +55,25 @@ variable "throttle" {
 # The following variables are not required to be modified to run the demo
 # but you can still modify them if you want to try a different setup
 #
+
+# Throttling for the Cassandra stress tool
+variable "loader_ops_per_sec" {
+  description = "Throttling for the Cassandra stress tool (in ops/sec)"
+  type        = string
+  default     = ""
+}
+
+variable "loader_read_ratio" {
+  description = "Read ratio"
+  type        = string
+  default     = "7"
+}
+
+variable "loader_write_ratio" {
+  description = "Write ratio"
+  type        = string
+  default     = "3"
+}
 
 # Scylla instance type
 variable "scylla_instance_type" {
