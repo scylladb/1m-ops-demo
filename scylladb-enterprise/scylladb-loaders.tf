@@ -7,7 +7,7 @@ resource "aws_instance" "loader_instance" {
   instance_type   = var.loader_instance_type
   subnet_id       = element(aws_subnet.public_subnet.*.id, count.index)
   security_groups = [aws_security_group.sg.id, ]
-  key_name        = var.aws_key_pair
+  key_name        = aws_key_pair.generated_key.key_name
   tags = {
     "Name"      = "${var.custom_name}-Loader-${count.index}"
     "CreatedBy" = "scylladb-demo"
@@ -59,7 +59,7 @@ resource "aws_instance" "loader_instance" {
   connection {
     type        = "ssh"
     user        = var.scylla_user
-    private_key = file(var.ssh_private_key)
+    private_key = tls_private_key.example.private_key_pem
     host        = coalesce(self.public_ip, self.private_ip)
     agent       = true
   }
