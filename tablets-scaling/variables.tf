@@ -6,33 +6,33 @@
 variable "aws_creds_file" {
   description = "AWS credentials location"
   type        = string
-  default     = "/home/user/.aws/credentials"
+  default     = ""
 }
 
 # AWS credentials file
 variable "aws_creds_profile" {
   description = "AWS credentials profile"
   type        = string
-  default     = "DeveloperAccessRole"
+  default     = ""
 }
 
 # SSH private key for EC2 instance access
 variable "ssh_private_key" {
   description = "SSH private key location for EC2 instance access"
   type        = string
-  default     = "/home/user/key.pem"
+  default     = ""
 }
 
 variable "aws_key_pair" {
   description = "Key pair name in AWS"
   type        = string
-  default     = "key-par"
+  default     = ""
 }
 
 variable "region" {
   description = "AWS region"
   type        = string
-  default     = "us-east-2"
+  default     = ""
 }
 
 # Number of threads for the CQL stress tool
@@ -76,7 +76,7 @@ variable "loader_write_ratio" {
 }
 
 # Scylla instance type
-variable "scylla_instance_type" {
+variable "scylla_node_type" {
   description = "Type of the EC2 instance"
   type        = string
   default     = "i4i.2xlarge"

@@ -2,7 +2,7 @@
 resource "aws_instance" "scylladb_seed" {
   count         = 1
   ami           = var.scylla_ami_id
-  instance_type = var.scylla_instance_type
+  instance_type = var.scylla_node_type
   key_name      = var.aws_key_pair
 
   subnet_id       = element(aws_subnet.public_subnet.*.id, count.index)
@@ -50,7 +50,7 @@ EOF
 resource "aws_instance" "scylladb_nonseeds" {
   count         = var.scylla_node_count - 1
   ami           = var.scylla_ami_id
-  instance_type = var.scylla_instance_type
+  instance_type = var.scylla_node_type
   key_name      = var.aws_key_pair
 
   subnet_id       = element(aws_subnet.public_subnet.*.id, count.index)
