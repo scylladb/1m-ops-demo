@@ -64,6 +64,17 @@ resource "local_file" "grafana_urls" {
   filename = "${path.module}/../frontend/public/data/terraform-data.json"
 }
 
+# Generate private key file for Ansible
+resource "local_file" "file_ansible_config" {
+  content  = <<-DOC
+    -----BEGIN RSA PRIVATE KEY-----
+    ${tls_private_key.example.private_key_pem}
+    -----END RSA PRIVATE KEY-----
+
+    DOC
+  filename = "./ansible/key.pem"
+}
+
 # Gerenate Ansible config file
 resource "local_file" "file_ansible_config" {
   content  = <<-DOC
@@ -76,7 +87,7 @@ resource "local_file" "file_ansible_config" {
     host_key_checking=False
     interpreter_python=auto_silent
     force_valid_group_names=ignore
-    private_key_file=${var.ssh_private_key}
+    private_key_file=key.pem
     remote_user=scyllaadm
 
     DOC

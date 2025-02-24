@@ -1,13 +1,23 @@
 # Create three EC2 instances based on the specified AMI, instance type, subnet ID, and security groups. 
 # Create tags to identify the instances and sets timeouts for creating the instances.
 
+resource "tls_private_key" "private_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "generated_key" {
+  key_name   = "ScyllaDB-Cloud-DEMO-key"
+  public_key = tls_private_key.private_key.public_key_openssh
+}
+
 resource "aws_instance" "instance" {
   count           = var.loader_node_count
   ami             = var.ami_id
   instance_type   = var.instance_type
   subnet_id       = element(aws_subnet.public_subnet.*.id, count.index)
   security_groups = [aws_security_group.sg.id, ]
-  key_name        = var.aws_key_pair
+  key_name        = aws_key_pair.generated_key.key_name
   tags = {
     "Name"      = "${var.custom_name}-Loader-${count.index}"
     "CreatedBy" = "scylladb-demo"
@@ -58,7 +68,7 @@ resource "aws_instance" "instance" {
   connection {
     type        = "ssh"
     user        = "scyllaadm"
-    private_key = file(var.ssh_private_key)
+    private_key = tls_private_key.example.private_key_pem
     host        = coalesce(self.public_ip, self.private_ip)
     agent       = true
   }
