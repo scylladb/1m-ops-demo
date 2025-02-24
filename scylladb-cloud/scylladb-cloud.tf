@@ -65,7 +65,7 @@ resource "local_file" "grafana_urls" {
 }
 
 # Generate private key file for Ansible
-resource "local_file" "file_ansible_config" {
+resource "local_file" "keyfile_ansible_config" {
   content  = <<-DOC
     -----BEGIN RSA PRIVATE KEY-----
     ${tls_private_key.example.private_key_pem}
