@@ -68,7 +68,7 @@ resource "local_file" "grafana_urls" {
 resource "local_file" "keyfile_ansible_config" {
   content  = <<-DOC
     -----BEGIN RSA PRIVATE KEY-----
-    ${tls_private_key.example.private_key_pem}
+    ${tls_private_key.private_key.private_key_pem}
     -----END RSA PRIVATE KEY-----
 
     DOC

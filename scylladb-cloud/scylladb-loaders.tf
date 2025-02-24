@@ -68,7 +68,7 @@ resource "aws_instance" "instance" {
   connection {
     type        = "ssh"
     user        = "scyllaadm"
-    private_key = tls_private_key.example.private_key_pem
+    private_key = tls_private_key.private_key.private_key_pem
     host        = coalesce(self.public_ip, self.private_ip)
     agent       = true
   }
