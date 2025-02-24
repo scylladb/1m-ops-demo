@@ -23,8 +23,12 @@ program_cwd = os.path.dirname(os.path.abspath(__file__))
 user_tf_variables_file = "user.tfvars.json"
 config_file = "config.json"
 demo_config_file = "demo-config.json"
-data_folder = os.path.join(program_cwd, "frontend/public/data") 
+data_folder = os.path.join(program_cwd, "frontend/public/data")
 
+
+def read_selected_demo():
+    with open(demo_config_file, "r") as json_file:
+        return json.load(json_file)["demo"]
 
 def create_tf_vars_file(variables, output_folder):
     with open(f"{output_folder}/{user_tf_variables_file}", 'w') as file:
@@ -68,8 +72,7 @@ def choose_demo():
 
 @app.route("/tf-plan", methods=["GET"])
 def terraform_plan():
-    with open(demo_config_file, "r") as json_file:
-        chosen_demo = json.load(json_file)["demo"]
+    chosen_demo = read_selected_demo()
     tf_folder = os.path.join(program_cwd, chosen_demo)
     print(tf_folder)
     cmd = ["terraform", "plan", f"-var-file={user_tf_variables_file}"]
@@ -98,8 +101,7 @@ def terraform_apply():
     tf_vars = request.json
     chosen_demo = ""
     # read chosen demo
-    with open(demo_config_file, "r") as json_file:
-        chosen_demo = json.load(json_file)["demo"]
+    chosen_demo = read_selected_demo()
    
     tf_folder = os.path.join(program_cwd, chosen_demo)
     # read and write  TF variables
@@ -131,8 +133,7 @@ def terraform_apply():
     
 @app.route("/tf-destroy", methods=["GET"])
 def terraform_destroy():
-    with open(demo_config_file, "r") as json_file:
-        chosen_demo = json.load(json_file)["demo"]
+    chosen_demo = read_selected_demo()
     tf_folder = os.path.join(program_cwd, chosen_demo)
     cmd = ["terraform", "destroy", "-auto-approve", f"-var-file={user_tf_variables_file}"]
 
