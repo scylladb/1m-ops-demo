@@ -1,5 +1,5 @@
 # ScyllaDB Enterprise 1 million operations/second DEMO
-This demo shows you how to set up infrastructure with Terraform and run a 1 million ops/sec load on a ScyllaDB Enterprise cluster. This repo is a great starting point for you to test ScyllaDB Enterprise under heavy load and simulate your own workload you expect ScyllaDB to handle. [Watch the video tutorial here!]()
+This demo shows you how to set up infrastructure with Terraform and run a 1 million ops/sec load on a ScyllaDB Enterprise cluster. This repo is a great starting point for you to test ScyllaDB Enterprise under heavy load and simulate your own workload you expect ScyllaDB to handle. [Watch the video tutorial here!](https://www.youtube.com/watch?v=3GM_SlPZLZo)
 
 ## Infrastructure elements
 * ScyllaDB Enterprise
