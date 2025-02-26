@@ -12,6 +12,17 @@ provider "scylladbcloud" {
   token = var.scylla_cloud_token
 }
 
+# Create ssh keys on the fly
+resource "tls_private_key" "private_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "generated_key" {
+  key_name   = "ScyllaDB-Cloud-DEMO-key"
+  public_key = tls_private_key.private_key.public_key_openssh
+}
+
 # Create a ScyllaDB Cloud cluster
 resource "scylladbcloud_cluster" "scylladbcloud" {
   name               = var.custom_name              # Set the cluster name
