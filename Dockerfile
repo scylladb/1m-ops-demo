@@ -15,7 +15,6 @@ RUN pip install awscli --upgrade --user
 ENV PATH=~/.local/bin:$PATH
 
 # Copy Terraform files
-
 COPY scylladb-cloud/ /app/scylladb-cloud/
 COPY scylladb-enterprise/ /app/scylladb-enterprise/
 COPY tablets-scaling/ /app/tablets-scaling/
