@@ -26,9 +26,9 @@ variable "aws_creds_file" {
 
 # AWS Profile to Use
 variable "aws_creds_profile" {
-   description = "AWS Profile to Use"
-   type        = string
-   default     = ""
+  description = "AWS Profile to Use"
+  type        = string
+  default     = ""
 }
 ################################################
 

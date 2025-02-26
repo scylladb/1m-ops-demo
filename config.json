@@ -1,9 +1,6 @@
 {
     "aws_creds_file": "/home/user/.aws/credentials",
     "aws_creds_profile": "DeveloperAccessRole",
-    "ssh_private_key": "/home/user/key.pem",
-    "aws_key_pair": "key-par",
     "region": "us-east-1",
     "scylla_cloud_token": "API-TOKEN"
 }
-  

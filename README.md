@@ -10,57 +10,33 @@ Currently supported DEMOs:
 
 
 ## Prerequisites
-* [Terraform](https://developer.hashicorp.com/terraform/install)
-* [Python 3](https://www.python.org/downloads/)
-* [NodeJS](https://nodejs.org/en/download)
-* [AWS CLI](https://aws.amazon.com/cli/) and [ScyllaDB Cloud API key](https://cloud.scylladb.com/)
+* [AWS CLI](https://aws.amazon.com/cli/)
+* [Docker](https://docker.com)
+* [ScyllaDB Cloud API key](https://cloud.scylladb.com/)
 
 ## Usage
 1. Clone the repository
     ```
     git clone https://github.com/scylladb/1m-ops-demo.git
+    cd 1m-ops-demo/
     ```
-1. Install DEMO UI application dependencies
-
-    Make sure you are in the root folder of the project.
-    
-    Install backend dependencies (virtual environment is recommended):
-    ```bash
-    virtualenv env && source env/bin/activate && pip install -r requirements.txt
-    ```
-
-    Install frontend dependencies (use `npm` or `yarn`):
-    ```bash
-    cd frontend
-    npm install
-    ```
-1. Edit `config.js` to set Terraform variables:
+1. Make sure AWS CLI is configured properly, and know the location of the credentials file (e.g. `~/.aws/credentials`)
+1. Edit `config.py`
     ```json
     {
-        "aws_creds_file": "/home/user/.aws/credentials",
-        "aws_creds_profile": "DeveloperAccessRole",
-        "ssh_private_key": "/home/user/key.pem",
-        "aws_key_pair": "key-par",
+        "aws_creds_file": "~/.aws/credentials",
         "region": "us-east-1",
         "scylla_cloud_token": "API-TOKEN"
     }
   
     ```
-1. Run DEMO UI application
-    
-    Start backend
+1. Run the web app (by default, it uses port 5000)
     ```bash
-    python app.py
-    ```
-
-    Start frontend
-    ```bash
-    cd frontend
-    npm run dev 
+    ./build_and_run.sh 
     ```
 1. Open DEMO UI application
     
-    Go to http://localhost:5173
+    Go to http://0.0.0.0:5000
 1. Select a demo you want to try (this will run `terraform init` under the hood)
     ![demo ui](/docs/source/_static/img/demo_ui.jpg)
 1. (Optional) Configure cluster size and workload settings on the left side
@@ -70,6 +46,30 @@ Currently supported DEMOs:
 1. Click on the different dashboard tabs to monitor the cluster.
 1. If you are done, don't forget to run `DESTROY` to remove infrastructure elements and avoid unnecessary costs.
 
+## Usage tips
+* In case you need to manually access `terraform`, you can always access it through the container's shell (keep in mind, that you need to change to a directory that contains the TF files):
+    ```bash
+    docker exec -it scylla-demo sh
+    cd <demo-folder>
+    ```
+* To run `terraform apply` from within the container: 
+    ```bash
+    terraform apply -var-file=user.tfvars.json -auto-approve
+    ```
+* To run `terraform destroy` from within the container: 
+    ```bash
+    terraform destroy -var-file=user.tfvars.json -auto-approve
+    ```
+* You can change the underlying Terraform implementation by stopping the container, making your changes then running `build_and_run.sh` script again.
+* If Terraform fails after spinning up some parts of the infrastructure, you can do two things:
+    * Either just click the `DESTROY` button, fix the problem, then run `build_and_run.sh` again or
+    * Open the container's shell, fix the problem, and run `terraform apply -var-file=user.tfvars.json -auto-approve`
+* If you want to install some package using the container's shell, you can use `apk add <package-name>` (the image is based on `Alpine`)
+
+
+
+## Known issues
+* Some regions may not work properly if the used AMI is not available in that region - working on a fix
 
 ## Relevant links
 * [ScyllaDB docs](https://docs.scylladb.com/stable/)

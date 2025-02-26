@@ -61,7 +61,7 @@ resource "aws_instance" "loader_instance" {
     user        = var.scylla_user
     private_key = tls_private_key.private_key.private_key_pem
     host        = coalesce(self.public_ip, self.private_ip)
-    agent       = true
+    agent       = false
   }
 
 }

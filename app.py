@@ -9,10 +9,10 @@ import re
 
 
 app = Flask(__name__, 
-    static_folder='dist',
+    static_folder='frontend/dist',
     static_url_path='')
 CORS(app) 
-socketio = SocketIO(app, cors_allowed_origins="http://localhost:5173")
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 env = os.environ.copy()
 env["PYTHONUNBUFFERED"] = "1"

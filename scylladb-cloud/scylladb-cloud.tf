@@ -12,6 +12,17 @@ provider "scylladbcloud" {
   token = var.scylla_cloud_token
 }
 
+# Create ssh keys on the fly
+resource "tls_private_key" "private_key" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "generated_key" {
+  key_name   = "ScyllaDB-Cloud-DEMO-key"
+  public_key = tls_private_key.private_key.public_key_openssh
+}
+
 # Create a ScyllaDB Cloud cluster
 resource "scylladbcloud_cluster" "scylladbcloud" {
   name               = var.custom_name              # Set the cluster name
@@ -36,26 +47,26 @@ output "scylladbcloud_cluster_datacenter" {
 
 # Set up VPC peering with the ScyllaDB Cloud cluster and a custom VPC
 resource "scylladbcloud_vpc_peering" "scylladbcloud" {
-  cluster_id      = scylladbcloud_cluster.scylladbcloud.id
-  datacenter      = scylladbcloud_cluster.scylladbcloud.datacenter
-  peer_vpc_id     = aws_vpc.custom_vpc.id
+  cluster_id       = scylladbcloud_cluster.scylladbcloud.id
+  datacenter       = scylladbcloud_cluster.scylladbcloud.datacenter
+  peer_vpc_id      = aws_vpc.custom_vpc.id
   peer_cidr_blocks = [var.custom_vpc]
-  peer_region     = data.aws_region.current.name
-  peer_account_id = data.aws_caller_identity.current.account_id
-  allow_cql       = true
+  peer_region      = data.aws_region.current.name
+  peer_account_id  = data.aws_caller_identity.current.account_id
+  allow_cql        = true
 }
 
 locals {
-  scylla_account_id = jsondecode(data.http.scylla_account_request.response_body)["data"]["accountId"]
-  scylla_grafana_url = jsondecode(data.http.scylla_grafana_url_request.response_body)["data"]["cluster"]["grafanaUrl"]
+  scylla_account_id     = jsondecode(data.http.scylla_account_request.response_body)["data"]["accountId"]
+  scylla_grafana_url    = jsondecode(data.http.scylla_grafana_url_request.response_body)["data"]["cluster"]["grafanaUrl"]
   scylla_version_parsed = join("-", slice(split(".", jsondecode(data.http.scylla_grafana_url_request.response_body)["data"]["cluster"]["scyllaVersion"]), 0, 2))
 
   template_file_init = templatefile("${path.module}/../terraform-data.tftpl", {
-    monitoring_url = split("/d/", local.scylla_grafana_url)[0]
-    scylla_version = local.scylla_version_parsed
+    monitoring_url  = split("/d/", local.scylla_grafana_url)[0]
+    scylla_version  = local.scylla_version_parsed
     is_scylla_cloud = "true"
-    scenario_steps = "\"start_stress\", \"stop_stress\""
-    demo = "scylladb-cloud"
+    scenario_steps  = "\"start_stress\", \"stop_stress\""
+    demo            = "scylladb-cloud"
   })
 }
 
@@ -68,7 +79,7 @@ resource "local_file" "grafana_urls" {
 resource "local_file" "keyfile_ansible_config" {
   content  = <<-DOC
     -----BEGIN RSA PRIVATE KEY-----
-    ${tls_private_key.example.private_key_pem}
+    ${tls_private_key.private_key.private_key_pem}
     -----END RSA PRIVATE KEY-----
 
     DOC

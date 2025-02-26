@@ -1,10 +1,9 @@
 import { useState, type ReactElement } from 'react';
-import { Tabs, Tab, Stack, Button, Modal, Form, Row, Col } from 'react-bootstrap';
+import { Tabs, Tab, Stack, Button, Modal, Form } from 'react-bootstrap';
 import type { IconType } from 'react-icons';
-import { FaGaugeSimple, FaRocket, FaCircleInfo } from 'react-icons/fa6';
+import { FaGaugeSimple, FaRocket } from 'react-icons/fa6';
 import { Dashboard } from '@/components/Dashboard';
 import { Scenarios } from '@/components/Scenarios';
-import { About } from '@/components/About';
 
 type Key = 'dashboard' | 'scenarios' | 'about';
 
