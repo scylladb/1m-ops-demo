@@ -18,10 +18,12 @@ variable "region" {
 }
 
 # AWS credentials file
+# Default location for Docker
+# You need to change this value for local testing
 variable "aws_creds_file" {
   description = "AWS credentials location"
   type        = string
-  default     = ""
+  default     = "/app/.aws/credentials"
 }
 
 # AWS Profile to Use
