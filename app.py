@@ -33,7 +33,12 @@ def read_selected_demo():
 def ansible_folder_path():
     return os.path.join(program_cwd, read_selected_demo(), "ansible")
 
-def create_tf_vars_file(variables, output_folder):
+def create_tf_vars_file(variables: dict, output_folder):
+    if variables.get("running_in_docker"):
+        # ignore aws_creds_file because Docker already knows this value
+        variables.pop("aws_creds_file", None)
+    # remove this key as it's not needed in Terraform
+    variables.pop("running_in_docker", None)
     with open(f"{output_folder}/{user_tf_variables_file}", 'w') as file:
         json.dump(variables, file, indent=4) 
 
