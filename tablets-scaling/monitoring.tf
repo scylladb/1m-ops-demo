@@ -88,11 +88,11 @@ locals {
   scylla_grafana_url = format("http://%s:3000", aws_instance.scylladb-monitoring.*.public_ip[0])
 
   template_file_init = templatefile("${path.module}/../terraform-data.tftpl", {
-    monitoring_url = local.scylla_grafana_url
-    scylla_version = "6-2"
+    monitoring_url  = local.scylla_grafana_url
+    scylla_version  = "6-2"
     is_scylla_cloud = "false"
-    scenario_steps = "\"original_cluster\", \"sample_data\", \"start_stress\", \"scale_out\", \"stop_stress\", \"scale_in\""
-    demo = "tablets-scaling"
+    scenario_steps  = "\"original_cluster\", \"sample_data\", \"start_stress\", \"scale_out\", \"stop_stress\", \"scale_in\""
+    demo            = "tablets-scaling"
   })
 }
 
