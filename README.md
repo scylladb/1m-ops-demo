@@ -55,7 +55,7 @@ Currently supported DEMOs:
 * You can change the underlying Terraform implementation by stopping the container, making your changes then running `build_and_run.sh` script again.
 * If Terraform fails after spinning up some parts of the infrastructure, you can do two things:
     * Either just click the `DESTROY` button, fix the problem, then run `build_and_run.sh` again or
-    * Open the container's shell, fix the problem, and run `terraform apply -var-file=user.tfvars.json`
+    * Open the container's shell, fix the problem, and run `terraform apply -var-file=user.tfvars.json -auto-approve`
 * If you want to install some package using the container's shell, you can use `apk add <package-name>` (the image is based on `Alpine`)
 
 
