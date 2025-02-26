@@ -67,9 +67,26 @@ Currently supported DEMOs:
 * If you want to install some package using the container's shell, you can use `apk add <package-name>` (the image is based on `Alpine`)
 
 
-
 ## Known issues
 * Some regions may not work properly if the used AMI is not available in that region - working on a fix
+
+## Local development
+Requirements:
+* NodeJS 22 (npm install -g node@22 or nvm install 22)
+* Python 3
+
+1. Install Python packages and start Flask server
+    ```bash
+    virtualenv env && source env/bin/activate
+    pip install -r reqiurements.txt
+    python app.py
+    ```
+1. Install frontend requirements and start dev server:
+    ```
+    cd frontend
+    npm install
+    npm run dev
+    ```
 
 ## Relevant links
 * [ScyllaDB docs](https://docs.scylladb.com/stable/)

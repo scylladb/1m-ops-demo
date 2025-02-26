@@ -21,4 +21,7 @@ scylla_cloud_token=$(extract_value "scylla_cloud_token")
 docker build -t scylla-demo .
 
 # Run the container
+# container gets deleted when stops
+# mounting the aws credentials file
+# running on port 5000
 docker run -p 5000:5000 --name scylla-demo --rm -v $aws_creds_file:/app/.aws/credentials -d scylla-demo 
