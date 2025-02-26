@@ -46,6 +46,21 @@ Currently supported DEMOs:
 1. Click on the different dashboard tabs to monitor the cluster.
 1. If you are done, don't forget to run `DESTROY` to remove infrastructure elements and avoid unnecessary costs.
 
+## Usage tips
+* In case you need to manually access `terraform`, you can always access it through the container's shell (keep in mind, that you need to change to a directory that contains the TF files):
+    ```bash
+    docker exec -it scylla-demo sh
+    cd <demo-folder>
+    ```
+* You can change the underlying Terraform implementation by stopping the container, making your changes then running `build_and_run.sh` script again.
+* If Terraform fails after spinning up some parts of the infrastructure, you can do two things:
+    * Either just click the `DESTROY` button, fix the problem, then run `build_and_run.sh` again or
+    * Open the container's shell, fix the problem, and run `terraform apply -var-file=user.tfvars.json`
+* If you want to install some package using the container's shell, you can use `apk add <package-name>` (the image is based on `Alpine`)
+
+
+## Known issues
+* Some regions may not work properly if the used AMI is not available in that region - working on a fix
 
 ## Relevant links
 * [ScyllaDB docs](https://docs.scylladb.com/stable/)
