@@ -1,5 +1,5 @@
 import { useState, type ReactElement } from 'react';
-import { Modal, Form, Stack } from 'react-bootstrap';
+import { Stack } from 'react-bootstrap';
 import { Button } from '@/components/Button';
 import { FaPlay, FaStop } from 'react-icons/fa6';
 
@@ -18,7 +18,7 @@ export const TerraformCommands = ({
   readOps,
   writeOps
 }: TerraformCommandsProps): ReactElement => {
-  const [isApplyRunning, setIsApplyRunning] = useState(false);
+  const [isApplyRunning] = useState(false);
 
   const handlePlan = async () => {
     try {

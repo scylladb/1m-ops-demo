@@ -1,11 +1,8 @@
-import { type ReactElement, useState } from 'react';
+import { type ReactElement } from 'react';
 import { Card, Form } from 'react-bootstrap';
-import { FaPlay, FaStop } from 'react-icons/fa6';
-import { Button } from '@/components/Button';
 import { Slider } from '@/components/Slider';
 import { SectionHeader } from '@/components/SectionHeader';
 import {
-  ButtonsContainer,
   PropertiesForm,
 } from '@/components/Dashboard/Layout';
 
