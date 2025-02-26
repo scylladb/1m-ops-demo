@@ -26,9 +26,9 @@ Currently supported DEMOs:
     {
         "aws_creds_file": "~/.aws/credentials",
         "region": "us-east-1",
-        "scylla_cloud_token": "API-TOKEN"
+        "scylla_cloud_token": "API-TOKEN",
+        "running_in_docker": true
     }
-  
     ```
 1. Run the web app (by default, it uses port 5000)
     ```bash
@@ -87,7 +87,16 @@ Requirements:
     npm install
     npm run dev
     ```
-
+1. Edit `config.json`:
+    ```json
+    {
+        "aws_creds_file": "~/.aws/credentials",
+        "region": "us-east-1",
+        "scylla_cloud_token": "API-TOKEN",
+        "running_in_docker": false
+    }
+    ```
+    If you are not using Docker, make sure to set that value to `false`.
 ## Relevant links
 * [ScyllaDB docs](https://docs.scylladb.com/stable/)
 * [ScyllaDB Cloud](https://cloud.scylladb.com)
