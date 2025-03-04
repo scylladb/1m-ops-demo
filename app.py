@@ -84,7 +84,7 @@ def terraform_plan():
     tf_folder = os.path.join(program_cwd, chosen_demo)
     cmd = ["terraform", "plan", f"-var-file={user_tf_variables_file}"]
 
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, cwd=tf_folder)
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=tf_folder)
     for line in process.stdout:
         console_output(line)
     process.wait()
