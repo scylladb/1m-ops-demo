@@ -32,6 +32,7 @@ Currently supported DEMOs:
     ```
     * `aws_creds_file`: the location of your AWS credentials file
     * `region`: AWS region you want to use for the demo
+    * `scylla_cloud_token`: You can generate an API token in ScyllaDB Cloud
     * `running_in_docker`: Normally this should be `true`
 1. Run the web app (by default, it uses port 5000)
     ```bash
