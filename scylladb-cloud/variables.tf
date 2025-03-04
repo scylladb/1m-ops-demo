@@ -123,10 +123,10 @@ variable "instance_tenancy" {
 }
 
 # Amazon Machine Image (AMI) ID
-variable "ami_id" {
+variable "loader_ami_name" {
   description = "AMI ID for the EC2 instance"
   type        = string
-  default     = "ami-0665aae77b073ae42"
+  default     = "ScyllaDB 5.4.0"
 }
 
 # Number of ScyllaDB Cloud instances to create

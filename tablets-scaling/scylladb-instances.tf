@@ -13,7 +13,7 @@ resource "aws_key_pair" "generated_key" {
 
 resource "aws_instance" "scylladb_seed" {
   count         = 1
-  ami           = var.scylla_ami_id
+  ami           = data.aws_ami.scylla_ami.id
   instance_type = var.scylla_node_type
   key_name      = aws_key_pair.generated_key.key_name
 
@@ -54,14 +54,14 @@ EOF
     user        = "ubuntu"
     private_key = tls_private_key.private_key.private_key_pem
     host        = coalesce(self.public_ip, self.private_ip)
-    agent       = true
+    agent       = false
   }
 }
 
 
 resource "aws_instance" "scylladb_nonseeds" {
   count         = var.scylla_node_count - 1
-  ami           = var.scylla_ami_id
+  ami           = data.aws_ami.scylla_ami.id
   instance_type = var.scylla_node_type
   key_name      = aws_key_pair.generated_key.key_name
 
@@ -92,12 +92,15 @@ EOF
 # Generate private key file for Ansible
 resource "local_file" "keyfile_ansible_config" {
   content  = <<-DOC
-    -----BEGIN RSA PRIVATE KEY-----
     ${tls_private_key.private_key.private_key_pem}
-    -----END RSA PRIVATE KEY-----
 
     DOC
   filename = "./ansible/key.pem"
+
+  provisioner "local-exec" {
+    command = "chmod 600 ./ansible/key.pem"
+  }
+
 }
 
 # Gerenate Ansible config file

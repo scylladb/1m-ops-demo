@@ -3,7 +3,7 @@
 
 resource "aws_instance" "loader_instance" {
   count           = var.loader_node_count
-  ami             = var.loader_ami_id
+  ami             = data.aws_ami.loader_ami.id
   instance_type   = var.loader_instance_type
   subnet_id       = element(aws_subnet.public_subnet.*.id, count.index)
   security_groups = [aws_security_group.sg.id, ]
