@@ -11,7 +11,7 @@ resource "aws_key_pair" "generated_key" {
 
 resource "aws_instance" "scylladb_seed" {
   count         = 1
-  ami           = var.scylla_ami_id
+  ami           = data.aws_ami.scylla_ami.id
   instance_type = var.scylla_node_type
   key_name      = aws_key_pair.generated_key.key_name
 
@@ -37,7 +37,7 @@ EOF
 
 resource "aws_instance" "scylladb_nonseeds" {
   count         = var.scylla_node_count - 1
-  ami           = var.scylla_ami_id
+  ami           = data.aws_ami.scylla_ami.id
   instance_type = var.scylla_node_type
   key_name      = aws_key_pair.generated_key.key_name
 

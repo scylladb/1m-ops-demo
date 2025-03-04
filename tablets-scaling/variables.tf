@@ -78,25 +78,25 @@ variable "loader_instance_type" {
   default     = "c5.4xlarge" #"i4i.8xlarge"
 }
 
-# Amazon Machine Image (AMI) ID
-variable "monitoring_ami_id" {
-  description = "AMI ID for the EC2 instance"
+# Amazon Machine Image (AMI) name
+variable "monitoring_ami_name" {
+  description = "AMI name for the EC2 instance"
   type        = string
-  default     = "ami-068cf3d51efeb20d6"
+  default     = "ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-20240326"
 }
 
-# Scylla (AMI) ID
-variable "scylla_ami_id" {
-  description = "AMI ID for the EC2 instance"
+# Scylla AMI name
+variable "scylla_ami_name" {
+  description = "AMI name for the ScyllaDB EC2 instance"
   type        = string
-  default     = "ami-09b70c072c282f906"
+  default     = "ScyllaDB Enterprise 2024.2*"
 }
 
-# Scylla (AMI) ID for Loader instance
-variable "loader_ami_id" {
-  description = "AMI ID for the EC2 loader instance"
+# Loader AMI name
+variable "loader_ami_name" {
+  description = "AMI name for the EC2 loader instance"
   type        = string
-  default     = "ami-068cf3d51efeb20d6"
+  default     = "ScyllaDB 5.4.0"
 }
 
 # Virtual Private Cloud (VPC) IP range

@@ -3,7 +3,7 @@
 
 resource "aws_instance" "loader_instance" {
   count           = var.loader_node_count
-  ami             = var.loader_ami_id
+  ami             = data.aws_ami.loader_ami.id
   instance_type   = var.loader_instance_type
   subnet_id       = element(aws_subnet.public_subnet.*.id, count.index)
   security_groups = [aws_security_group.sg.id, ]
@@ -17,32 +17,40 @@ resource "aws_instance" "loader_instance" {
     create = "10m"
   }
 
-  # Provision files to each instance. Copy three files from the current directory 
-  # to the remote instance: stress.yml, cql-stress.service.
+  # Provision files to each instance. Copy loader files.
 
   provisioner "file" {
-    source      = "./stress/cql-stress.service"
-    destination = "/home/ubuntu/cql-stress.service"
+    source      = "../loader/Dockerfile"
+    destination = "/home/scyllaadm/Dockerfile"
+  }
+  provisioner "file" {
+    source      = "../loader/loader.sh"
+    destination = "/home/scyllaadm/loader.sh"
+  }
+  provisioner "file" {
+    source      = "../loader/docker.sh"
+    destination = "/home/scyllaadm/docker.sh"
   }
 
-  # Run remote-exec commands on each instance. It stops the scylla-server, creates a start.sh script, 
-  # creates a benchmark.sh script, sets permissions on the scripts, moves two files to /etc/systemd/system/, 
-  # runs daemon-reload, and starts the cql-stress service.
+  provisioner "file" {
+    source      = "../loader/cql-stress.service"
+    destination = "/home/scyllaadm/cql-stress.service"
+  }
+
+  # Build loader app 
 
   provisioner "remote-exec" {
     inline = [
-      # "sudo systemctl stop scylla-server |tee scylla.log",
-      "sudo apt-get update -y",
-      "sudo DEBIAN_FRONTEND=noninteractive apt-get install -y build-essential libssl-dev git-all pkg-config",
-      "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y",
-      ". \"$HOME/.cargo/env\"",
-      "git clone https://github.com/scylladb/cql-stress.git && cd cql-stress",
-      "cargo build --release",
-      "echo \"cd /home/ubuntu/cql-stress\ncargo run --release --bin cql-stress-cassandra-stress -- mixed duration=6h cl=local_quorum keysize=100 'ratio(read=8,write=2)' -col n=5 size='FIXED(200)' -mode cql3 -rate throttle=${var.throttle} threads=${var.num_threads} -pop seq=1..1M -node ${local.scylla_ips}\" > start.sh",
+      "sudo systemctl stop scylla-server |tee scylla.log",
+      "sudo chmod +x /home/scyllaadm/docker.sh",
+      "sudo /home/scyllaadm/docker.sh",
+      "sudo systemctl restart docker",
+      "cd /home/scyllaadm/ && sudo docker build -t loader .",
+      "echo 'sudo docker run loader ${var.loader_ops_per_sec} ${var.loader_read_ratio} ${var.loader_write_ratio} \"${local.scylla_ips}\" \"scylla\" \"pass\"' > start.sh",
       "sudo chmod +x start.sh",
-      "sudo mv /home/ubuntu/cql-stress.service /etc/systemd/system/cql-stress.service",
+      "sudo mv /home/scyllaadm/cql-stress.service /etc/systemd/system/cql-stress.service ",
       "sudo systemctl daemon-reload",
-      "sudo systemctl start cql-stress.service",
+      #"sudo systemctl start cql-stress.service",
     ]
   }
 

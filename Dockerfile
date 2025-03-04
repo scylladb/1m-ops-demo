@@ -3,7 +3,7 @@ FROM nikolaik/python-nodejs:python3.10-nodejs22-alpine
 
 # Install tools
 RUN apk update && \
-    apk add unzip wget curl
+    apk add unzip wget curl openssh
 
 # Install Terraform
 RUN wget https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_linux_amd64.zip \

@@ -84,7 +84,7 @@ def terraform_plan():
     tf_folder = os.path.join(program_cwd, chosen_demo)
     cmd = ["terraform", "plan", f"-var-file={user_tf_variables_file}"]
 
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, cwd=tf_folder)
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=tf_folder)
     for line in process.stdout:
         console_output(line)
     process.wait()
@@ -168,8 +168,8 @@ def run_ansible_playbook(playbook_path):
                                cwd=ansible_folder_path())
     for line in process.stdout:
         console_output(line)
-        socketio.sleep(0)
     process.wait()
+    console_output("\nScenario completed!")
 
 @socketio.on("original_cluster")
 def handle_original_cluster():

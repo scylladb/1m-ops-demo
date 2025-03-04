@@ -1,5 +1,5 @@
 resource "aws_instance" "scylladb-monitoring" {
-  ami           = var.monitoring_ami_id
+  ami           = data.aws_ami.monitoring_ami.id
   instance_type = var.monitoring_instance_type
   key_name      = aws_key_pair.generated_key.key_name
 

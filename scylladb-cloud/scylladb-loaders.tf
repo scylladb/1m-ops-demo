@@ -3,7 +3,7 @@
 
 resource "aws_instance" "instance" {
   count           = var.loader_node_count
-  ami             = var.ami_id
+  ami             = data.aws_ami.loader_ami.id
   instance_type   = var.instance_type
   subnet_id       = element(aws_subnet.public_subnet.*.id, count.index)
   security_groups = [aws_security_group.sg.id, ]
@@ -84,3 +84,4 @@ resource "aws_eip_association" "eip_association" {
   instance_id   = element(aws_instance.instance.*.id, count.index) # Associate the current Elastic IP with the current EC2 instance
   allocation_id = element(aws_eip.eip.*.id, count.index)           # Associate the current Elastic IP with the current allocation ID
 }
+
