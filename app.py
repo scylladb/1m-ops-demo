@@ -46,6 +46,7 @@ def console_output(line):
     ansi_escape = re.compile(r'\x1b\[[0-9;]*m')
     clean_line = ansi_escape.sub('', line)
     socketio.emit("playbook_output", {"output": clean_line.strip()+"\n"})
+    socketio.sleep(0.01)
 
 @app.route("/")
 def index():
@@ -83,13 +84,12 @@ def terraform_plan():
     tf_folder = os.path.join(program_cwd, chosen_demo)
     cmd = ["terraform", "plan", f"-var-file={user_tf_variables_file}"]
 
-    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=tf_folder)
-    
+    process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, cwd=tf_folder)
     for line in process.stdout:
         console_output(line)
-        socketio.sleep(0)
     process.wait()
     console_output("\nTerraform plan complete!")
+    
     return "Terraform plan finished", 200
 
 
@@ -129,7 +129,6 @@ def terraform_apply():
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=tf_folder)
     for line in process.stdout:
         console_output(line)
-        socketio.sleep(0)
     process.wait()
     console_output("\nTerraform apply complete!")
     return "Terraform apply finished", 200
@@ -143,7 +142,6 @@ def terraform_destroy():
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=tf_folder)
     for line in process.stdout:
         console_output(line)
-        socketio.sleep(0)
     process.wait()
     console_output("\nTerraform destroy complete!")
     return "Terraform destroy finished", 200

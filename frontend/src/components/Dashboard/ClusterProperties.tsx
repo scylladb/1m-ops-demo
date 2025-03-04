@@ -43,7 +43,7 @@ export const ClusterProperties = ({
         <PropertiesForm utilClassesString="mb-3">
           <Slider
             value={numberOfNodes}
-            min={1}
+            min={3}
             max={10}
             step={1}
             onChange={(event) => {

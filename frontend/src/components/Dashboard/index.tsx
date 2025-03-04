@@ -6,9 +6,9 @@ import { TerraformCommands } from '@/components/Dashboard/TerraformCommands';
 export const Dashboard = (): ReactElement => {
   const [numberOfNodes, setNumberOfNodes] = useState(3);
   const [instanceType, setInstanceType] = useState<EC2InstanceType>('i4i.4xlarge');
-  const [readOps, setReadOps] = useState(10000);
-  const [writeOps, setWriteOps] = useState(10000);
-  const [numberOfLoaders, setNumberOfLoaders] = useState(2);
+  const [readOps, setReadOps] = useState(250000);
+  const [writeOps, setWriteOps] = useState(250000);
+  const [numberOfLoaders, setNumberOfLoaders] = useState(1);
   
 
   return (<>
