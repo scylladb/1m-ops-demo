@@ -30,10 +30,14 @@ Currently supported DEMOs:
         "running_in_docker": true
     }
     ```
+    * `aws_creds_file`: the location of your AWS credentials file
+    * `region`: AWS region you want to use for the demo
+    * `running_in_docker`: Normally this should be `true`
 1. Run the web app (by default, it uses port 5000)
     ```bash
     ./build_and_run.sh 
     ```
+    This will spin up a Docker container and run the web app on the `5000` port. You can stop the container with `docker stop scylla-demo`
 1. Open DEMO UI application
     
     Go to http://0.0.0.0:5000
@@ -66,13 +70,9 @@ Currently supported DEMOs:
     * Open the container's shell, fix the problem, and run `terraform apply -var-file=user.tfvars.json -auto-approve`
 * If you want to install some package using the container's shell, you can use `apk add <package-name>` (the image is based on `Alpine`)
 
-
-## Known issues
-* Some regions may not work properly if the used AMI is not available in that region - working on a fix
-
 ## Local development
 Requirements:
-* NodeJS 22 (npm install -g node@22 or nvm install 22)
+* NodeJS 22 (`npm install -g node@22` or `nvm install 22`)
 * Python 3
 
 1. Install Python packages and start Flask server
@@ -96,7 +96,8 @@ Requirements:
         "running_in_docker": false
     }
     ```
-    If you are not using Docker, make sure to set that value to `false`.
+    If you are running the app locally for development purposes, make sure to set `running_in_docker` to `false`.
+
 ## Relevant links
 * [ScyllaDB docs](https://docs.scylladb.com/stable/)
 * [ScyllaDB Cloud](https://cloud.scylladb.com)
