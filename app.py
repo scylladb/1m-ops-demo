@@ -168,8 +168,8 @@ def run_ansible_playbook(playbook_path):
                                cwd=ansible_folder_path())
     for line in process.stdout:
         console_output(line)
-        socketio.sleep(0)
     process.wait()
+    console_output("\nScenario completed!")
 
 @socketio.on("original_cluster")
 def handle_original_cluster():
