@@ -161,6 +161,7 @@ globals()["process"] = None
 
 def run_ansible_playbook(playbook_path):
     playbook_cmd = ["ansible-playbook", playbook_path]
+    console_output("\nScenario started!\n")
     process = subprocess.Popen(playbook_cmd,
                                stdout=subprocess.PIPE,
                                stderr=subprocess.STDOUT,
