@@ -24,13 +24,13 @@ Currently supported DEMOs:
 1. Edit `config.py`
     ```json
     {
-        "aws_creds_file": "~/.aws/credentials",
+        "aws_creds_file": "/home/user/.aws/credentials",
         "region": "us-east-1",
         "scylla_cloud_token": "API-TOKEN",
         "running_in_docker": true
     }
     ```
-    * `aws_creds_file`: the location of your AWS credentials file
+    * `aws_creds_file`: the location (absolute path) of your AWS credentials file
     * `region`: AWS region you want to use for the demo
     * `scylla_cloud_token`: You can generate an API token in ScyllaDB Cloud
     * `running_in_docker`: Normally this should be `true`
@@ -91,7 +91,7 @@ Requirements:
 1. Edit `config.json`:
     ```json
     {
-        "aws_creds_file": "~/.aws/credentials",
+        "aws_creds_file": "/home/user/.aws/credentials",
         "region": "us-east-1",
         "scylla_cloud_token": "API-TOKEN",
         "running_in_docker": false

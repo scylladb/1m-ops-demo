@@ -24,4 +24,4 @@ docker build -t scylla-demo .
 # container gets deleted when stops
 # mounting the aws credentials file
 # running on port 5000
-docker run -p 5000:5000 --name scylla-demo --rm -v $aws_creds_file:/app/.aws/credentials -d scylla-demo 
+docker run -p 5000:5000 --name scylla-demo --rm -v $aws_creds_file:/app/.aws/credentials -d scylla-demo
