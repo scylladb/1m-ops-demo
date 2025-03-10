@@ -58,7 +58,7 @@ resource "aws_instance" "loader_instance" {
   # The coalesce function is used to select the public IP address of ScyllaDB Nodes.
   connection {
     type        = "ssh"
-    user        = "ubuntu"
+    user        = "scyllaadm"
     private_key = tls_private_key.private_key.private_key_pem
     host        = coalesce(self.public_ip, self.private_ip)
     agent       = false
