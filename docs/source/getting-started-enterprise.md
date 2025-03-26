@@ -1,4 +1,4 @@
-# Get started
+# Get started with ScyllaDB Enterprise on AWS
 
 Follow along this video to get started:
 
