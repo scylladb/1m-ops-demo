@@ -1,13 +1,14 @@
 # ScyllaDB 1 million operations/second DEMOs
 
 This repository contains Terraform and Ansible based projects to help you
-set up DEMOs and POCs with ScyllaDB in a cloud environment.
+set up DEMOs and POCs with ScyllaDB in a cloud environment. 
 
 Currently supported DEMOs:
 * [ScyllaDB Cloud 1 million operations/second (AWS and ScyllaDB Cloud account needed)](/scylladb-cloud)
 * [ScyllaDB Enterprise 1 million operations/second (AWS account needed)](/scylladb-enterprise)
 * [Scaling from 3 to 6 nodes (AWS account needed))](/tablets-scaling)
 
+[See how DEMO UI works](https://www.youtube.com/watch?v=-nPO9KeNydM).
 
 ## Prerequisites
 * [AWS CLI](https://aws.amazon.com/cli/)
