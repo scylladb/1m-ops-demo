@@ -1,4 +1,4 @@
-# Get started
+# Get started with ScyllaDB Cloud
 
 Follow along this video to get started:
 
