@@ -2,7 +2,7 @@ terraform {
   required_providers {
     scylladbcloud = {
       source  = "registry.terraform.io/scylladb/scylladbcloud"
-      version = "~> 0.3"
+      version = "~> 1.11"
     }
   }
   required_version = ">= 0.13"
