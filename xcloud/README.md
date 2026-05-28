@@ -56,21 +56,7 @@ scylladb_token = "your-token-here"
 
 ---
 
-## Key Variables
-
-| Variable | Default | Description |
-|---|---|---|
-| `scylladb_token` | _(required)_ | ScyllaDB Cloud API token |
-| `cluster_name` | `my-xcloud-cluster` | Cluster display name |
-| `cloud_provider` | `AWS` | Cloud provider (`AWS` or `GCP`) |
-| `region` | `us-east-1` | Deployment region |
-| `cidr_block` | `172.31.0.0/16` | VPC CIDR for the cluster |
-| `instance_families` | `["i8g"]` | Instance family for autoscaling |
-| `min_storage_gb` | `500` | Minimum physical storage floor (GB) |
-| `target_utilization` | `0.8` | Target storage utilization (0.7–0.9) |
-| `min_vcpus` | `6` | Minimum vCPU floor |
-
-### Scaling parameters in detail
+## Scaling parameters in detail
 
 **`instance_families`** — X Cloud scales within a single instance family. The autoscaler picks specific instance sizes within that family. Keeping this broad (e.g., just `["i8g"]`) gives the scaler the most flexibility.
 
