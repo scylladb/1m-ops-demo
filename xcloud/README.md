@@ -54,8 +54,6 @@ export TF_VAR_scylladb_token="your-token-here"
 scylladb_token = "your-token-here"
 ```
 
-> ⚠️ Never commit your API token. The `.gitignore` in this directory already excludes `*.tfvars` and `.terraform/`.
-
 ---
 
 ## Key Variables
