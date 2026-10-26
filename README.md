@@ -22,16 +22,18 @@ Currently supported DEMOs:
     cd 1m-ops-demo/
     ```
 1. Make sure AWS CLI is configured properly, and know the location of the credentials file (e.g. `~/.aws/credentials`)
-1. Edit `config.py`
+1. Edit `config.json`
     ```json
     {
         "aws_creds_file": "/home/user/.aws/credentials",
+        "aws_creds_profile": "default",
         "region": "us-east-1",
         "scylla_cloud_token": "API-TOKEN",
         "running_in_docker": true
     }
     ```
     * `aws_creds_file`: the location (absolute path) of your AWS credentials file
+    * `aws_creds_profile`: the profile to use from that credentials file
     * `region`: AWS region you want to use for the demo
     * `scylla_cloud_token`: You can generate an API token in ScyllaDB Cloud
     * `running_in_docker`: Normally this should be `true`
@@ -93,6 +95,7 @@ Requirements:
     ```json
     {
         "aws_creds_file": "/home/user/.aws/credentials",
+        "aws_creds_profile": "default",
         "region": "us-east-1",
         "scylla_cloud_token": "API-TOKEN",
         "running_in_docker": false

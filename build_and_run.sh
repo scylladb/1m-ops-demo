@@ -1,4 +1,7 @@
 #!/bin/bash
+# Stop at the first failure, so a failed image build isn't followed by
+# a docker run of a missing or stale image.
+set -e
 
 # Check if the config file exists
 CONFIG_FILE="config.json"
