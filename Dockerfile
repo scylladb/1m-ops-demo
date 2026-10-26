@@ -1,5 +1,5 @@
 # Base image: Python3 + NodeJS 22
-FROM nikolaik/python-nodejs:python3.10-nodejs22-alpine
+FROM docker.io/nikolaik/python-nodejs:python3.10-nodejs22-alpine
 
 # Install tools
 RUN apk update && \
@@ -12,7 +12,7 @@ RUN mv terraform /usr/local/bin/
 
 # Install AWS CLI
 RUN pip install awscli --upgrade --user
-ENV PATH=~/.local/bin:$PATH
+ENV PATH=/root/.local/bin:$PATH
 
 # Copy Terraform files
 COPY scylladb-cloud/ /app/scylladb-cloud/
