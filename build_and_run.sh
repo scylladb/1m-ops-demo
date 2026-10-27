@@ -13,7 +13,8 @@ fi
 
 # Read JSON values
 extract_value() {
-    grep -oP '"'"$1"'"\s*:\s*"\K[^"]+' "$CONFIG_FILE"
+    # sed instead of grep -P, which macOS grep doesn't support
+    sed -n 's/.*"'"$1"'"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "$CONFIG_FILE"
 }
 aws_creds_file=$(extract_value "aws_creds_file")
 aws_creds_profile=$(extract_value "aws_creds_profile")

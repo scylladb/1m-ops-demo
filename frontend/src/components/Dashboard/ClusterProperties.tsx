@@ -44,8 +44,8 @@ export const ClusterProperties = ({
           <Slider
             value={numberOfNodes}
             min={3}
-            max={10}
-            step={1}
+            max={9}
+            step={3}
             onChange={(event) => {
               setNumberOfNodes(Number(event.target.value));
             }}
