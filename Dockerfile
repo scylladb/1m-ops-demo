@@ -5,9 +5,10 @@ FROM docker.io/nikolaik/python-nodejs:python3.10-nodejs22-alpine
 RUN apk update && \
     apk add unzip wget curl openssh
 
-# Install Terraform
-RUN wget https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_linux_amd64.zip \
-    && unzip terraform_1.10.5_linux_amd64.zip
+# Install Terraform for the build platform (amd64 or arm64)
+ARG TARGETARCH
+RUN wget https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_linux_${TARGETARCH:-amd64}.zip \
+    && unzip terraform_1.10.5_linux_${TARGETARCH:-amd64}.zip
 RUN mv terraform /usr/local/bin/
 
 # Install AWS CLI

@@ -2,7 +2,8 @@
 terraform {
   required_providers {
     scylladbcloud = {
-      source = "registry.terraform.io/scylladb/scylladbcloud"
+      source  = "registry.terraform.io/scylladb/scylladbcloud"
+      version = "~> 1.13"
     }
   }
 }
@@ -27,7 +28,7 @@ resource "aws_key_pair" "generated_key" {
 resource "scylladbcloud_cluster" "scylladbcloud" {
   name               = var.custom_name              # Set the cluster name
   region             = data.aws_region.current.name # Get the AWS region name where you want to launch the cluster
-  node_count         = var.scylla_node_count        # Set the number of nodes in the cluster
+  min_nodes          = var.scylla_node_count        # Set the number of nodes in the cluster (must be divisible by 3)
   node_type          = var.scylla_node_type         # Set the instance type for the cluster nodes
   cidr_block         = "172.31.0.0/16"              # Set the CIDR block for the VPC
   cloud              = "AWS"                        # Set the cloud provider to AWS
