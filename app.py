@@ -48,6 +48,17 @@ def console_output(line):
     socketio.emit("playbook_output", {"output": clean_line.strip()+"\n"})
     socketio.sleep(0.01)
 
+def finish_terraform(process, command, done_message):
+    """Wait for a Terraform command and report how it ended. The console used to
+    say "complete!" even when Terraform failed, so a learner could stop the
+    container (and lose the state) while resources were still running."""
+    process.wait()
+    if process.returncode == 0:
+        console_output(f"\nTerraform {command} complete!")
+        return done_message, 200
+    console_output(f"\nTerraform {command} FAILED (exit code {process.returncode}). See the error above.")
+    return f"Terraform {command} failed", 500
+
 @app.route("/")
 def index():
     try:
@@ -73,9 +84,7 @@ def choose_demo():
     for line in process.stdout:
         console_output(line)
         socketio.sleep(0)
-    console_output("\nTerraform init complete!")
-    process.wait()
-    return "Demo selected and Terraform initialized", 200
+    return finish_terraform(process, "init", "Demo selected and Terraform initialized")
 
 
 @app.route("/tf-plan", methods=["GET"])
@@ -87,10 +96,7 @@ def terraform_plan():
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=tf_folder)
     for line in process.stdout:
         console_output(line)
-    process.wait()
-    console_output("\nTerraform plan complete!")
-    
-    return "Terraform plan finished", 200
+    return finish_terraform(process, "plan", "Terraform plan finished")
 
 
 def calculate_read_write_ratio(reads, writes):
@@ -129,9 +135,7 @@ def terraform_apply():
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=tf_folder)
     for line in process.stdout:
         console_output(line)
-    process.wait()
-    console_output("\nTerraform apply complete!")
-    return "Terraform apply finished", 200
+    return finish_terraform(process, "apply", "Terraform apply finished")
     
 @app.route("/tf-destroy", methods=["GET"])
 def terraform_destroy():
@@ -142,9 +146,7 @@ def terraform_destroy():
     process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, cwd=tf_folder)
     for line in process.stdout:
         console_output(line)
-    process.wait()
-    console_output("\nTerraform destroy complete!")
-    return "Terraform destroy finished", 200
+    return finish_terraform(process, "destroy", "Terraform destroy finished")
 
 @app.route("/data/<path:filename>")
 def serve_data(filename):
@@ -170,7 +172,10 @@ def run_ansible_playbook(playbook_path):
     for line in process.stdout:
         console_output(line)
     process.wait()
-    console_output("\nScenario completed!")
+    if process.returncode == 0:
+        console_output("\nScenario completed!")
+    else:
+        console_output(f"\nScenario FAILED (exit code {process.returncode}). See the error above.")
 
 @socketio.on("original_cluster")
 def handle_original_cluster():
