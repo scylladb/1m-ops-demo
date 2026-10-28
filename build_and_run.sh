@@ -28,4 +28,6 @@ docker build -t scylla-demo .
 # container gets deleted when stops
 # mounting the aws credentials file
 # running on port 5000
-docker run -p 5000:5000 --name scylla-demo --rm -v $aws_creds_file:/app/.aws/credentials -d scylla-demo
+# label=disable: on SELinux hosts (Fedora, RHEL) the container can't read the
+# mounted credentials file otherwise; it has no effect elsewhere
+docker run -p 5000:5000 --name scylla-demo --rm --security-opt label=disable -v $aws_creds_file:/app/.aws/credentials -d scylla-demo
